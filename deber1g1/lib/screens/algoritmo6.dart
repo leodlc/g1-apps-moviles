@@ -47,7 +47,8 @@ class _SixthScreenState extends State<SixthScreen> {
 
     // Calcular total sin IVA
     double totalSinIVA = totalPaltos + totalLimones + totalChirimoyos;
-    int cantidadTotalArboles = cantidadPaltos + cantidadLimones + cantidadChirimoyos;
+    int cantidadTotalArboles =
+        cantidadPaltos + cantidadLimones + cantidadChirimoyos;
 
     // Aplicar descuento adicional si hay más de 1000 árboles
     if (cantidadTotalArboles > 1000) {
