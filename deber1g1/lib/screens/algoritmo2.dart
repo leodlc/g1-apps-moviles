@@ -87,9 +87,11 @@ class _SecondScreenState extends State<SecondScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final accentColor = Colors.grey.shade800;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cálculo de Camisas'),
+        title: const Text('Cálculo de Camisas'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -97,45 +99,52 @@ class _SecondScreenState extends State<SecondScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               'Ingrese la edad para determinar el precio de la camiseta:',
               style: TextStyle(fontSize: 18),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+
+            // TextField con ícono para la edad
             TextField(
               controller: _ageController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Edad',
-                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.person_outline, color: accentColor),
+                border: const OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Ingrese la cantidad de camisas que desea comprar:',
               style: TextStyle(fontSize: 18),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+
+            // TextField con ícono para la cantidad de camisas
             TextField(
               controller: _quantityController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Cantidad de camisas',
-                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.add_shopping_cart, color: accentColor),
+                border: const OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _calculateTotal,
-              child: Text('Calcular Total'),
+              child: const Text('Calcular Total'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (_result.isNotEmpty)
               Text(
                 _result,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
           ],
