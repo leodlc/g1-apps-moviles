@@ -26,15 +26,16 @@ class MyApp extends StatelessWidget {
 
 class HomeScreen extends StatelessWidget {
   final List<Exercise> exers = [
-    Exercise(name: 'Ejercicio 1', icon: Icons.bed, route: OneScreen()),
-    Exercise(name: 'Ejercicio 2', icon: Icons.kitchen, route: SecondScreen()),
-    Exercise(name: 'Ejercicio 3', icon: Icons.chair, route: ThirdScreen()),
+    Exercise(name: 'Ejercicio 1', icon: Icons.boy, route: OneScreen()),
     Exercise(
-        name: 'Ejercicio 4',
-        icon: Icons.local_laundry_service,
-        route: FourthScreen()),
-    Exercise(name: 'Ejercicio 5', icon: Icons.bathtub, route: FifthScreen()),
-    Exercise(name: 'Ejercicio 6', icon: Icons.tv, route: SixthScreen()),
+        name: 'Ejercicio 2', icon: Icons.shopping_bag, route: SecondScreen()),
+    Exercise(
+        name: 'Ejercicio 3', icon: Icons.architecture, route: ThirdScreen()),
+    Exercise(
+        name: 'Ejercicio 4', icon: Icons.electric_bolt, route: FourthScreen()),
+    Exercise(
+        name: 'Ejercicio 5', icon: Icons.attach_money, route: FifthScreen()),
+    Exercise(name: 'Ejercicio 6', icon: Icons.nature, route: SixthScreen()),
   ];
 
   @override
