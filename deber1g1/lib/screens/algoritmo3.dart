@@ -35,36 +35,79 @@ class _ThirdScreenState extends State<ThirdScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Verificar Terna Pitagórica')),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text('Verificar Terna Pitagórica'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 50.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextField(
               controller: _aController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Ingrese el valor de a'),
+              decoration: InputDecoration(
+                labelText: 'Valor de a',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 20.0),
+              ),
             ),
+            const SizedBox(height: 16),
             TextField(
               controller: _bController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Ingrese el valor de b'),
+              decoration: InputDecoration(
+                labelText: 'Valor de b',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 20.0),
+              ),
             ),
+            const SizedBox(height: 16),
             TextField(
               controller: _cController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Ingrese el valor de c'),
+              decoration: InputDecoration(
+                labelText: 'Valor de c',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: 20.0),
+              ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 30),
             ElevatedButton(
               onPressed: verificarTernaPitagorica,
-              child: Text('Verificar'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.grey[300],
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Text(
+                'Verificar',
+                style: TextStyle(fontSize: 18),
+              ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               _result,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
               textAlign: TextAlign.center,
             ),
           ],
