@@ -53,7 +53,7 @@ class InfoScreen extends StatelessWidget {
                       ),
                     ),
                     child: Image.network(
-                      'https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png',
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsVFSqbF7n79uSZNX7yYJeBmBeL4HgeiKudA&s',
                       width: 120,
                       height: 120,
                       fit: BoxFit.contain,
