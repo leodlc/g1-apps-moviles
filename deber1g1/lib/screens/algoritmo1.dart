@@ -44,43 +44,112 @@ class _OneScreenState extends State<OneScreen> {
     });
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
+    final accentColor = Colors.grey.shade800;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categorización por Edad'),
+        title: Text(
+          'Categorización por Edad',
+          style: TextStyle(
+            color: accentColor,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        backgroundColor: Colors.grey.shade50,
+        elevation: 0,
+        centerTitle: true,
       ),
+      backgroundColor: Colors.grey.shade50,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               'Ingrese la edad para determinar la categoría:',
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(
+                fontSize: 16,
+                color: accentColor,
+                fontWeight: FontWeight.w400,
+              ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 32),
+
+            // TextField con el ícono de "edad" dentro
             TextField(
               controller: _ageController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Edad',
-                border: OutlineInputBorder(),
+                labelStyle: TextStyle(color: Colors.grey.shade600),
+                prefixIcon: Icon(
+                  Icons.person_outline,
+                  color: accentColor,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: accentColor),
+                ),
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 32),
+
             ElevatedButton(
               onPressed: _calculateCategory,
-              child: Text('Calcular Categoría'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: accentColor,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                elevation: 0,
+              ),
+              child: const Text(
+                'Calcular Categoría',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 32),
+
             if (_message.isNotEmpty)
-              Text(
-                _message,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Colors.grey.shade200,
+                    width: 1,
+                  ),
+                ),
+                child: Text(
+                  _message,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: accentColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
           ],
         ),
@@ -88,3 +157,4 @@ class _OneScreenState extends State<OneScreen> {
     );
   }
 }
+
