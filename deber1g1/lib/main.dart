@@ -125,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                     exer.icon,
                     size: 50,
                     color:
-                        exer.color, // Usamos el color específico para el icono
+                        exer.color, 
                   ),
                   const SizedBox(height: 10),
                   Text(exer.name, style: const TextStyle(fontSize: 16)),
@@ -142,7 +142,7 @@ class HomeScreen extends StatelessWidget {
 class Exercise {
   final String name;
   final IconData icon;
-  final Color color; // Se añade un color a cada ejercicio
+  final Color color; 
   final Widget route;
 
   Exercise(
