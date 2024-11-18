@@ -1,36 +1,136 @@
 import 'package:flutter/material.dart';
 
 class InfoScreen extends StatelessWidget {
+  const InfoScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    // Definimos colores personalizados para un tema minimalista
+    final accentColor = Colors.grey.shade800;
+    final backgroundColor = Colors.grey.shade50;
+    final cardColor = Colors.white;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Información'),
+        title: const Text(
+          'Información',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+            color: Colors.black87,
+          ),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: backgroundColor,
+        iconTheme: IconThemeData(color: accentColor),
       ),
-       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 20),
-            Image.network(
-              'https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png', // URL de la imagen
-              width: 150,
-              height: 150,
+      body: Container(
+        color: backgroundColor,
+        child: Center(
+          child: Card(
+            margin: const EdgeInsets.all(20),
+            elevation: 2,
+            color: cardColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'Desarrollo de Aplicaciones Móviles\nGrupo 1',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Colors.grey.shade200,
+                        width: 1,
+                      ),
+                    ),
+                    child: Image.network(
+                      'https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png',
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade50,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      'Desarrollo de Aplicaciones Móviles\nGrupo 1',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: accentColor,
+                        height: 1.5,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Integrantes',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: accentColor,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Column(
+                    children: [
+                      'Daniel Armas',
+                      'Leonardo De La Cadena',
+                      'Josué Merino',
+                      'Vanessa Zurita',
+                    ]
+                        .map((nombre) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                  horizontal: 16,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade50,
+                                  borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(
+                                    color: Colors.grey.shade200,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Text(
+                                  nombre,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 10),
-            const Text(
-              'Daniel Armas\nLeonardo De La Cadena\nJosué Merino\nVanessa Zurita',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18),
-            ),
-          ],
+          ),
         ),
       ),
     );
