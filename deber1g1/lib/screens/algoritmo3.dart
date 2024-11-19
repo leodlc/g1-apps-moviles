@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ThirdScreen extends StatefulWidget {
   @override
@@ -10,13 +11,34 @@ class _ThirdScreenState extends State<ThirdScreen> {
   final TextEditingController _bController = TextEditingController();
   final TextEditingController _cController = TextEditingController();
   String _result = '';
+  String _errorMessage = '';
 
   // Función para verificar si es una terna pitagórica
   void verificarTernaPitagorica() {
-    // Convertimos los valores a enteros
-    int a = int.tryParse(_aController.text) ?? 0;
-    int b = int.tryParse(_bController.text) ?? 0;
-    int c = int.tryParse(_cController.text) ?? 0;
+    setState(() {
+      _errorMessage = ''; // Limpiar el mensaje de error
+    });
+
+    // Validar entradas
+    if (_aController.text.isEmpty ||
+        _bController.text.isEmpty ||
+        _cController.text.isEmpty) {
+      setState(() {
+        _errorMessage = "Todos los campos deben estar llenos.";
+      });
+      return;
+    }
+
+    int? a = int.tryParse(_aController.text);
+    int? b = int.tryParse(_bController.text);
+    int? c = int.tryParse(_cController.text);
+
+    if (a == null || b == null || c == null) {
+      setState(() {
+        _errorMessage = "Solo se deben ingresar números enteros.";
+      });
+      return;
+    }
 
     // Verificamos las condiciones de terna pitagórica
     if (a * a + b * b == c * c ||
@@ -47,9 +69,19 @@ class _ThirdScreenState extends State<ThirdScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            if (_errorMessage.isNotEmpty)
+              Text(
+                _errorMessage,
+                style: const TextStyle(color: Colors.red, fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+            const SizedBox(height: 10),
             TextField(
               controller: _aController,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               decoration: InputDecoration(
                 labelText: 'Valor de a',
                 border: OutlineInputBorder(
@@ -63,6 +95,9 @@ class _ThirdScreenState extends State<ThirdScreen> {
             TextField(
               controller: _bController,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               decoration: InputDecoration(
                 labelText: 'Valor de b',
                 border: OutlineInputBorder(
@@ -76,6 +111,9 @@ class _ThirdScreenState extends State<ThirdScreen> {
             TextField(
               controller: _cController,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               decoration: InputDecoration(
                 labelText: 'Valor de c',
                 border: OutlineInputBorder(
