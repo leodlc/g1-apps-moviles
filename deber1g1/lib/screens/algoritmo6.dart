@@ -67,7 +67,7 @@ class _SixthScreenState extends State<SixthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tv Room - Cálculo de Árboles'),
+        title: Text('Cálculo de Árboles'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
