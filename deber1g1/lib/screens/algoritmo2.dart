@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class SecondScreen extends StatefulWidget {
   @override
@@ -9,25 +8,47 @@ class SecondScreen extends StatefulWidget {
 class _SecondScreenState extends State<SecondScreen> {
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
+
   double _pricePerShirt = 0;
   String _result = '';
-  String _message = '';
+  String _ageMessage = '';
+  String _quantityMessage = '';
 
-  double _calculateCategory() {
+  @override
+  void initState() {
+    super.initState();
+    _ageController.addListener(_validateAge);
+    _quantityController.addListener(_validateQuantity);
+  }
+
+  @override
+  void dispose() {
+    _ageController.dispose();
+    _quantityController.dispose();
+    super.dispose();
+  }
+
+  void _validateAge() {
+    final String input = _ageController.text.trim();
+    if (input.isEmpty) {
+      setState(() {
+        _ageMessage = 'Por favor, ingresa una edad.';
+        _pricePerShirt = 0;
+      });
+      return;
+    }
+
+    final int? age = int.tryParse(input);
+    if (age == null || age < 0) {
+      setState(() {
+        _ageMessage = 'Por favor, ingresa un número válido para la edad.';
+        _pricePerShirt = 0;
+      });
+      return;
+    }
+
     setState(() {
-      final String input = _ageController.text.trim();
-
-      if (input.isEmpty) {
-        _message = 'Ingresa una edad';
-        return;
-      }
-
-      final int? age = int.tryParse(input);
-      if (age == null || age < 0) {
-        _message = 'Por favor, ingresa un número válido para la edad.';
-        return;
-      }
-
+      _ageMessage = '';
       if (age <= 10) {
         _pricePerShirt = 4.99;
       } else if (age > 10 && age <= 14) {
@@ -38,50 +59,69 @@ class _SecondScreenState extends State<SecondScreen> {
         _pricePerShirt = 14.99;
       } else if (age > 25 && age <= 65) {
         _pricePerShirt = 19.99;
-      } else if (age > 65) {
-        _pricePerShirt = 17.99;
       } else {
-        _message = 'Edad no válida.';
+        _pricePerShirt = 17.99;
       }
     });
-    return _pricePerShirt;
+  }
+
+  void _validateQuantity() {
+    final String input = _quantityController.text.trim();
+    if (input.isEmpty) {
+      setState(() {
+        _quantityMessage = 'Por favor, ingresa la cantidad de camisas.';
+      });
+      return;
+    }
+
+    final int? quantity = int.tryParse(input);
+    if (quantity == null || quantity <= 0) {
+      setState(() {
+        _quantityMessage =
+        'Por favor, ingresa un número válido y positivo para la cantidad.';
+      });
+      return;
+    }
+
+    setState(() {
+      _quantityMessage = '';
+    });
   }
 
   void _calculateTotal() {
+    final String quantityInput = _quantityController.text.trim();
+
+    if (_ageMessage.isNotEmpty || _quantityMessage.isNotEmpty) {
+      setState(() {
+        _result = 'Por favor, corrige los errores antes de continuar.';
+      });
+      return;
+    }
+
+    final int? quantity = int.tryParse(quantityInput);
+    if (quantity == null || quantity <= 0 || _pricePerShirt == 0) {
+      setState(() {
+        _result = 'Error en los datos ingresados.';
+      });
+      return;
+    }
+
+    // Lógica de descuento según cantidad
+    double discount = 0;
+    if (quantity >= 4 && quantity <= 10) {
+      discount = 0.10;
+    } else if (quantity >= 11 && quantity <= 20) {
+      discount = 0.15;
+    } else if (quantity >= 21 && quantity <= 30) {
+      discount = 0.20;
+    } else if (quantity > 30) {
+      discount = 0.50;
+    }
+
+    double total = _pricePerShirt * quantity * (1 - discount);
     setState(() {
-      final String quantityInput = _quantityController.text.trim();
-
-      if (quantityInput.isEmpty) {
-        _result = 'Por favor, ingresa la cantidad de camisas.';
-        return;
-      }
-
-      final int? quantity = int.tryParse(quantityInput);
-      if (quantity == null || quantity <= 0) {
-        _result = 'Por favor, ingresa un número válido y positivo para la cantidad.';
-        return;
-      }
-
-      double price = _calculateCategory();
-      if (price == 0) {
-        _result = _message;
-        return;
-      }
-
-      // Lógica de descuento según cantidad
-      double discount = 0;
-      if (quantity >= 4 && quantity <= 10) {
-        discount = 0.10;
-      } else if (quantity >= 11 && quantity <= 20) {
-        discount = 0.15;
-      } else if (quantity >= 21 && quantity <= 30) {
-        discount = 0.20;
-      } else if (quantity > 30) {
-        discount = 0.50;
-      }
-
-      double total = price * quantity * (1 - discount);
-      _result = 'Cantidad: $quantity camisas\nPrecio Unitario: \$${price.toStringAsFixed(2)}\nDescuento: ${(discount * 100).toStringAsFixed(0)}%\nTotal: \$${total.toStringAsFixed(2)}';
+      _result =
+      'Cantidad: $quantity camisas\nPrecio Unitario: \$${_pricePerShirt.toStringAsFixed(2)}\nDescuento: ${(discount * 100).toStringAsFixed(0)}%\nTotal: \$${total.toStringAsFixed(2)}';
     });
   }
 
@@ -105,8 +145,6 @@ class _SecondScreenState extends State<SecondScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-
-            // TextField con ícono para la edad
             TextField(
               controller: _ageController,
               keyboardType: TextInputType.number,
@@ -114,6 +152,7 @@ class _SecondScreenState extends State<SecondScreen> {
                 labelText: 'Edad',
                 prefixIcon: Icon(Icons.person_outline, color: accentColor),
                 border: const OutlineInputBorder(),
+                errorText: _ageMessage.isNotEmpty ? _ageMessage : null,
               ),
             ),
             const SizedBox(height: 20),
@@ -123,8 +162,6 @@ class _SecondScreenState extends State<SecondScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-
-            // TextField con ícono para la cantidad de camisas
             TextField(
               controller: _quantityController,
               keyboardType: TextInputType.number,
@@ -132,6 +169,8 @@ class _SecondScreenState extends State<SecondScreen> {
                 labelText: 'Cantidad de camisas',
                 prefixIcon: Icon(Icons.add_shopping_cart, color: accentColor),
                 border: const OutlineInputBorder(),
+                errorText:
+                _quantityMessage.isNotEmpty ? _quantityMessage : null,
               ),
             ),
             const SizedBox(height: 20),
@@ -144,7 +183,7 @@ class _SecondScreenState extends State<SecondScreen> {
               Text(
                 _result,
                 style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
           ],
