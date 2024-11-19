@@ -44,7 +44,7 @@ class _FifthScreenState extends State<FifthScreen> {
     super.dispose();
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -60,6 +60,7 @@ class _FifthScreenState extends State<FifthScreen> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Sueldo Base',
+                prefixIcon: Icon(Icons.monetization_on),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -69,13 +70,23 @@ class _FifthScreenState extends State<FifthScreen> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Ventas del Mes',
+                prefixIcon: Icon(Icons.shopping_cart),
                 border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 16.0),
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: _calcularSueldo,
-              child: Text('Calcular Sueldo Mensual'),
+              icon: Icon(Icons.calculate),
+              label: Text('Calcular Sueldo Mensual',
+                  style: TextStyle(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 95, 95, 95),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0),
+              ),
             ),
             SizedBox(height: 16.0),
             Text(
