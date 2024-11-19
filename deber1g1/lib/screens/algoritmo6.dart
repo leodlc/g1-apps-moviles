@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Necesario para TextInputFormatter
 
 class SixthScreen extends StatefulWidget {
   @override
@@ -47,8 +48,7 @@ class _SixthScreenState extends State<SixthScreen> {
 
     // Calcular total sin IVA
     double totalSinIVA = totalPaltos + totalLimones + totalChirimoyos;
-    int cantidadTotalArboles =
-        cantidadPaltos + cantidadLimones + cantidadChirimoyos;
+    int cantidadTotalArboles = cantidadPaltos + cantidadLimones + cantidadChirimoyos;
 
     // Aplicar descuento adicional si hay más de 1000 árboles
     if (cantidadTotalArboles > 1000) {
@@ -63,11 +63,11 @@ class _SixthScreenState extends State<SixthScreen> {
     });
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cálculo de Árboles'),
+        title: Text('Tv Room - Cálculo de Árboles'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -77,9 +77,11 @@ class _SixthScreenState extends State<SixthScreen> {
             TextField(
               controller: _paltosController,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               decoration: InputDecoration(
                 labelText: 'Cantidad de Paltos',
-                prefixIcon: Icon(Icons.eco),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -87,9 +89,11 @@ class _SixthScreenState extends State<SixthScreen> {
             TextField(
               controller: _limonesController,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               decoration: InputDecoration(
                 labelText: 'Cantidad de Limones',
-                prefixIcon: Icon(Icons.local_florist),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -97,24 +101,18 @@ class _SixthScreenState extends State<SixthScreen> {
             TextField(
               controller: _chirimoyosController,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               decoration: InputDecoration(
                 labelText: 'Cantidad de Chirimoyos',
-                prefixIcon: Icon(Icons.leak_add),
                 border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 16.0),
-            ElevatedButton.icon(
+            ElevatedButton(
               onPressed: _calcularTotal,
-              icon: Icon(Icons.calculate),
-              label: Text('Calcular Total'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0),
-              ),
+              child: Text('Calcular Total'),
             ),
             SizedBox(height: 16.0),
             Text(
@@ -128,4 +126,3 @@ class _SixthScreenState extends State<SixthScreen> {
     );
   }
 }
-
