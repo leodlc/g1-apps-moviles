@@ -1,0 +1,13 @@
+# Activar el motor de reescritura
+RewriteEngine On
+RewriteBase /
+
+# Permitir métodos GET, POST, PUT, DELETE
+<Limit GET POST PUT DELETE>
+    Allow from all
+</Limit>
+
+# Redirigir las rutas al archivo index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]

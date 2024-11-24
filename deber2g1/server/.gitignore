@@ -1,0 +1,32 @@
+# Archivos sensibles
+.env
+
+# Dependencias del proyecto
+/vendor/
+
+# Archivos generados por Composer
+composer.lock
+
+# Archivos y carpetas del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos temporales y logs
+*.log
+*.cache
+*.tmp
+
+# Configuraciones de IDE y editores
+.vscode/
+.idea/
+*.iml
+
+# Configuración del sistema operativo
+*.bak
+*.swp
+*.swo
+
+# Configuración de XAMPP (si la usas)
+*.bak-[0-9]*
+htdocs/
