@@ -11,11 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && $_SERVER['REQUEST_URI'] === "/") {
 }
 
 // Redirigir rutas específicas a sus controladores
-$path = $_SERVER['REQUEST_URI'];
-$method = $_SERVER['REQUEST_METHOD'];
+/* $path = $_SERVER['REQUEST_URI'];
+$method = $_SERVER['REQUEST_METHOD']; */
 
 // Aquí puedes manejar diferentes rutas si decides agregar más endpoints más tarde
-switch ($path) {
+/* switch ($path) {
     case "/users":
         require_once __DIR__ . "/users.php";
         break;
@@ -23,3 +23,4 @@ switch ($path) {
         http_response_code(404);
         echo json_encode(["error" => "Route not found"]);
 }
+ */
