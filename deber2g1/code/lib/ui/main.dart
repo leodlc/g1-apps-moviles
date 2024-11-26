@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../logical/creacion_de_usuario.dart';
+import 'formulario_login.dart';
 import 'formulario.dart';
 
 void main() {
@@ -12,9 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Creación de Usuarios',
+      title: 'Login',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const UserCreationForm(),
+      home: const UserLoginForm(),
     );
   }
 }

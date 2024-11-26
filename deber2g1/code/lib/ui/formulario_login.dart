@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
-import '../logical/creacion_de_usuario.dart';
+import '../logical/login_usuario.dart';
+import 'formulario.dart';
 
-class UserCreationForm extends StatefulWidget {
-  const UserCreationForm({Key? key}) : super(key: key);
+class UserLoginForm extends StatefulWidget {
+  const UserLoginForm({Key? key}) : super(key: key);
 
   @override
-  _UserCreationFormState createState() => _UserCreationFormState();
+  _UserLoginFormState createState() => _UserLoginFormState();
 }
 
-class _UserCreationFormState extends State<UserCreationForm> {
+class _UserLoginFormState extends State<UserLoginForm> {
   final _formKey = GlobalKey<FormState>();
-  final _controller = UserCreationController();
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
+  final _controller = UserLoginController();
+  final _userController = TextEditingController();
   final _passwordController = TextEditingController();
 
   void _handleSubmit() async {
     if (_formKey.currentState?.validate() ?? false) {
       final userData = {
-        'name': _nameController.text,
-        'email': _emailController.text,
+        'name': _userController.text,
         'password': _passwordController.text,
       };
 
-      final success = await _controller.submitUserData(userData);
+      final success = await _controller.submitUserLoginData(userData);
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Usuario creado exitosamente',
+              'Entrada exitosa',
               style: TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.green,
@@ -39,7 +38,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Error al crear usuario',
+              'Contraseña o usuario incorrecto.',
               style: TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.red,
@@ -53,8 +52,12 @@ class _UserCreationFormState extends State<UserCreationForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Crear Usuario'),
+        title: Text(
+            'Login - Leo Empire.',
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.blueAccent,
+        centerTitle: true,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -73,7 +76,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Formulario de Registro',
+                        'Inicio de sesión',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -82,40 +85,18 @@ class _UserCreationFormState extends State<UserCreationForm> {
                       ),
                       SizedBox(height: 20),
                       TextFormField(
-                        controller: _nameController,
+                        controller: _userController,
                         decoration: InputDecoration(
                           labelText: 'Nombre',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                              Icon(Icons.person, color: Colors.blueAccent),
+                          Icon(Icons.person, color: Colors.blueAccent),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Por favor ingresa un nombre';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Correo electrónico',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          prefixIcon:
-                              Icon(Icons.email, color: Colors.blueAccent),
-                        ),
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor ingresa un correo electrónico';
-                          } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
-                              .hasMatch(value)) {
-                            return 'Por favor ingresa un correo válido';
+                            return 'Por favor ingresa el nombre de su usuario';
                           }
                           return null;
                         },
@@ -129,7 +110,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                              Icon(Icons.lock, color: Colors.blueAccent),
+                          Icon(Icons.lock, color: Colors.blueAccent),
                         ),
                         obscureText: true,
                         validator: (value) {
@@ -142,24 +123,52 @@ class _UserCreationFormState extends State<UserCreationForm> {
                         },
                       ),
                       SizedBox(height: 30),
-                      ElevatedButton(
-                        onPressed: _handleSubmit,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: _handleSubmit,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blueAccent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            ),
+                            child: Text(
+                              'Iniciar Sesión',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                              ),
+                            ),
                           ),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 50, vertical: 15),
-                        ),
-                        child: Text(
-                          'Crear Usuario',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
+                          ElevatedButton(
+                            onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UserCreationForm(),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blueAccent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            ),
+                            child: Text(
+                              'Registro',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        ],
+                      )
                     ],
                   ),
                 ),
