@@ -29,7 +29,7 @@ function isAuthenticated()
 if (strpos($path, "/users") === 0) {
     switch ($method) {
         case "GET":
-            //isAuthenticated(); // Proteger la ruta
+            isAuthenticated(); // Proteger la ruta
             $userController->getAllUsers();
             break;
         case "POST":
@@ -39,7 +39,7 @@ if (strpos($path, "/users") === 0) {
         case "PUT":
             $id = basename($path);  // Extraemos el ID desde la URL
             $inputData = json_decode(file_get_contents("php://input"), true);  // Datos de la solicitud
-            isAuthenticated(); // Aseguramos que el usuario esté autenticado
+            //isAuthenticated(); // Aseguramos que el usuario esté autenticado
             $userController->update($id, $inputData);  // Pasamos el ID y los datos
             break;
         case "DELETE":
