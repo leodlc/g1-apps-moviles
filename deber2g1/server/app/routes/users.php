@@ -1,5 +1,7 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 require_once __DIR__ . "/../controllers/UserController.php";
 require_once __DIR__ . "/../helpers/JWTHandler.php";
 
@@ -27,7 +29,7 @@ function isAuthenticated()
 if (strpos($path, "/users") === 0) {
     switch ($method) {
         case "GET":
-            isAuthenticated(); // Proteger la ruta
+            //isAuthenticated(); // Proteger la ruta
             $userController->getAllUsers();
             break;
         case "POST":
