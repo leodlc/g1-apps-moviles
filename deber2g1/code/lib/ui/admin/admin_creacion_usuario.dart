@@ -72,26 +72,81 @@ class _AdminCreacionUsuarioState extends State<AdminCreacionUsuario> {
             const SizedBox(height: 16),
             TextField(
               controller: _usernameController,
-              decoration: const InputDecoration(labelText: 'Nombre de Usuario'),
+              decoration: InputDecoration(
+                labelText: 'Nombre de Usuario',
+                labelStyle:
+                    const TextStyle(color: Colors.blue), // Color del label
+                filled: false, // Fondo activo
+                fillColor: Colors.lightBlue[50], // Fondo azul claro
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(
+                    color: Colors.blue, // Borde azul al enfocar
+                    width: 2.0,
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 8),
             TextField(
               controller: _emailController,
-              decoration:
-                  const InputDecoration(labelText: 'Correo Electrónico'),
+              decoration: InputDecoration(
+                labelText: 'Correo Electrónico',
+                labelStyle: const TextStyle(color: Colors.blue),
+                filled: false,
+                fillColor: Colors.lightBlue[50],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(
+                    color: Colors.blue,
+                    width: 2.0,
+                  ),
+                ),
+              ),
+              keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 8),
             TextField(
               controller: _passwordController,
               obscureText: true,
-              decoration: const InputDecoration(labelText: 'Contraseña'),
+              decoration: InputDecoration(
+                labelText: 'Contraseña',
+                labelStyle: const TextStyle(color: Colors.blue),
+                filled: false,
+                fillColor: Colors.lightBlue[50],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(
+                    color: Colors.blue,
+                    width: 2.0,
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 16),
             _isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: _crearUsuario,
-                    child: const Text('Crear Usuario'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue, // Color azul
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    child: const Text(
+                      'Crear Usuario',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
           ],
         ),

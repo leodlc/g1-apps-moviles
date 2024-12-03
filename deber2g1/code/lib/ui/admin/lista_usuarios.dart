@@ -52,66 +52,88 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de Usuarios'),
+        title: const Text(
+          'Lista de Usuarios - Panel Admin',
+        ),
+        titleTextStyle: const TextStyle(color: Colors.white),
+        backgroundColor: Colors.blue,
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
+            color: Colors.white,
             onPressed: () => _mostrarVentanaCrearUsuario(context),
           ),
         ],
       ),
-      body: Consumer<UserCrudController>(
-        builder: (context, controller, child) {
-          return ValueListenableBuilder<List<Map<String, dynamic>>>(
-            valueListenable: controller.userListNotifier,
-            builder: (context, userList, _) {
-              if (userList.isEmpty) {
-                return const Center(child: Text('No hay usuarios disponibles'));
-              }
-
-              return ListView.builder(
-                itemCount: userList.length,
-                itemBuilder: (context, index) {
-                  final usuario = userList[index];
-                  return ListTile(
-                    title: Text(usuario['username']),
-                    subtitle: Text(usuario['email']),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () =>
-                              _mostrarVentanaEditarUsuario(context, usuario),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () async {
-                            try {
-                              await controller
-                                  .deleteUser(usuario['id'].toString());
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content:
-                                        Text('Usuario eliminado exitosamente')),
-                              );
-                            } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content:
-                                        Text('Error al eliminar usuario: $e')),
-                              );
-                            }
-                          },
-                        ),
-                      ],
+      body: Container(
+        margin: const EdgeInsets.all(20.0), // Espaciado interno
+        decoration: BoxDecoration(
+          color: Colors.grey[100], // Fondo gris claro
+        ),
+        child: Consumer<UserCrudController>(
+          builder: (context, controller, child) {
+            return ValueListenableBuilder<List<Map<String, dynamic>>>(
+              valueListenable: controller.userListNotifier,
+              builder: (context, userList, _) {
+                if (userList.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'No hay usuarios disponibles',
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                   );
-                },
-              );
-            },
-          );
-        },
+                }
+
+                return ListView.builder(
+                  itemCount: userList.length,
+                  itemBuilder: (context, index) {
+                    final usuario = userList[index];
+                    return ListTile(
+                      leading: const Icon(
+                        Icons.person,
+                        color: Colors.blue,
+                      ),
+                      title: Text(usuario['username']),
+                      subtitle: Text(usuario['email']),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            color: Colors.green,
+                            onPressed: () =>
+                                _mostrarVentanaEditarUsuario(context, usuario),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            color: Colors.red,
+                            onPressed: () async {
+                              try {
+                                await controller
+                                    .deleteUser(usuario['id'].toString());
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'Usuario eliminado exitosamente')),
+                                );
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Error al eliminar usuario: $e')),
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

@@ -42,6 +42,7 @@ class _AdminEditarUsuarioState extends State<AdminEditarUsuario> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Editar Usuario'),
+      titleTextStyle: const TextStyle(color: Colors.white), // Azul
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -50,7 +51,20 @@ class _AdminEditarUsuarioState extends State<AdminEditarUsuario> {
             children: [
               TextFormField(
                 initialValue: _editedData['username'],
-                decoration: const InputDecoration(labelText: 'Username'),
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  labelStyle: const TextStyle(color: Colors.blue), // Azul
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(
+                      color: Colors.blue, // Azul al enfocar
+                      width: 2.0,
+                    ),
+                  ),
+                ),
                 onChanged: (value) => _editedData['username'] = value,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -59,9 +73,23 @@ class _AdminEditarUsuarioState extends State<AdminEditarUsuario> {
                   return null;
                 },
               ),
+              const SizedBox(height: 8),
               TextFormField(
                 initialValue: _editedData['email'],
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  labelStyle: const TextStyle(color: Colors.blue),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(
+                      color: Colors.blue,
+                      width: 2.0,
+                    ),
+                  ),
+                ),
                 onChanged: (value) => _editedData['email'] = value,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -78,11 +106,23 @@ class _AdminEditarUsuarioState extends State<AdminEditarUsuario> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false), // Cancelar
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.blue, // Texto azul
+          ),
           child: const Text('Cancelar'),
         ),
         ElevatedButton(
           onPressed: _guardarCambios, // Guardar cambios
-          child: const Text('Guardar'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue, // Fondo azul
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          child: const Text(
+            'Guardar',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ],
     );
