@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../logical/login_usuario.dart';
+import 'pageSimulator.dart';
 import 'formulario.dart';
 
 class UserLoginForm extends StatefulWidget {
@@ -17,30 +18,30 @@ class _UserLoginFormState extends State<UserLoginForm> {
 
   void _handleSubmit() async {
     if (_formKey.currentState?.validate() ?? false) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator()),
+      );
+
       final userData = {
-        'name': _userController.text,
+        'username': _userController.text,
         'password': _passwordController.text,
       };
 
       final success = await _controller.submitUserLoginData(userData);
+      Navigator.pop(context); // Cierra el indicador de carga
+
       if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Entrada exitosa',
-              style: TextStyle(color: Colors.white),
-            ),
-            backgroundColor: Colors.green,
-          ),
+        // Redirigir al usuario a la pantalla principal
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => UserHomePage()),
         );
-        _formKey.currentState?.reset();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text(
-              'Contraseña o usuario incorrecto.',
-              style: TextStyle(color: Colors.white),
-            ),
+            content: Text('Contraseña o usuario incorrecto.', style: TextStyle(color: Colors.white)),
             backgroundColor: Colors.red,
           ),
         );
