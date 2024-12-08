@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import '../logic/factorizacion4.dart';
-import 'result4_screen.dart';
+import '../logic/factorial2.dart';
+import 'result2_screen.dart';
 
-class Factorizacion4Screen extends StatefulWidget {
+class Factorial2Screen extends StatefulWidget {
   @override
-  _Factorizacion4ScreenState createState() => _Factorizacion4ScreenState();
+  _Factorial2ScreenState createState() => _Factorial2ScreenState();
 }
 
-class _Factorizacion4ScreenState extends State<Factorizacion4Screen> {
+class _Factorial2ScreenState extends State<Factorial2Screen> {
   final TextEditingController _controllerNumero = TextEditingController();
 
   void _mostrarResultados() {
@@ -20,13 +20,14 @@ class _Factorizacion4ScreenState extends State<Factorizacion4Screen> {
     }
 
     final numero = int.parse(numeroTexto);
-    final factorizacion = Factorizacion4().factorizar(numero);
+    final factorial = //metodo para el factorial;
 
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) =>
-            Result4Screen(numero: numero, factorizacion: factorizacion),
+            Result2Screen()//(agregas aqui los parametros que necesites),
+              //ej: Result2Screen(numero: numero, factorial: factorial),
       ),
     );
   }
@@ -34,7 +35,7 @@ class _Factorizacion4ScreenState extends State<Factorizacion4Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Factorización de un Número - Ejercicio 4')),
+      appBar: AppBar(title: Text('Factorial de un Número - Ejercicio 2')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

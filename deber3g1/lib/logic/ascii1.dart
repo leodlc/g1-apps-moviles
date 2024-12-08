@@ -1,0 +1,3 @@
+class ascci1 {
+
+}
