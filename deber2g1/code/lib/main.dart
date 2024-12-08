@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Importa Provider
 import 'logical/crud_usuario.dart'; // Asegúrate de usar el controlador correcto
+import 'logical/login_usuario.dart'; // Importa UserLoginController
 import 'ui/formulario_login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'ui/admin/lista_usuarios.dart';
@@ -16,8 +17,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => UserCrudController(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserCrudController()),
+        ChangeNotifierProvider(create: (_) => UserLoginController()),
+      ],
       child: MaterialApp(
         title: 'Login',
         theme: ThemeData(primarySwatch: Colors.blue),
