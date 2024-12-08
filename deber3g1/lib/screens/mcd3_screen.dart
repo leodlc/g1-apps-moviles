@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../logic/mcd3.dart';
 import 'result3_screen.dart';
 
-class mcd3Screen extends StatefulWidget {
-  const mcd3Screen({super.key});
+class MCD3Screen extends StatefulWidget {
+  const MCD3Screen({super.key});
 
   @override
-  _mcd3ScreenState createState() => _mcd3ScreenState();
+  _MCD3ScreenState createState() => _MCD3ScreenState();
 }
 
-class _mcd3ScreenState extends State<mcd3Screen> {
+class _MCD3ScreenState extends State<MCD3Screen> {
   final TextEditingController _controllerNumero1 = TextEditingController();
   final TextEditingController _controllerNumero2 = TextEditingController();
 
@@ -17,29 +17,36 @@ class _mcd3ScreenState extends State<mcd3Screen> {
     final numeroTexto1 = _controllerNumero1.text.trim();
     final numeroTexto2 = _controllerNumero2.text.trim();
 
+    // Validación de entradas
     if (numeroTexto1.isEmpty || int.tryParse(numeroTexto1) == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Por favor ingresa un número válido')),
-      );
+      _mostrarError('Por favor, ingresa un número válido en el campo 1');
       return;
     }
 
     if (numeroTexto2.isEmpty || int.tryParse(numeroTexto2) == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Por favor ingresa un número válido')),
-      );
+      _mostrarError('Por favor, ingresa un número válido en el campo 2');
       return;
     }
 
     final numero1 = int.parse(numeroTexto1);
     final numero2 = int.parse(numeroTexto2);
-    final calculoMCD = mcd3().mcd(numero1, numero2);
+
+    final resultado = mcd3().mcd(numero1, numero2);
 
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) =>
-            Result3Screen(numero1: numero1, calculoMCD: calculoMCD),
+            Result3Screen(numero1: numero1, numero2: numero2, resultado: resultado),
+      ),
+    );
+  }
+
+  void _mostrarError(String mensaje) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(mensaje),
+        backgroundColor: Colors.redAccent,
       ),
     );
   }
@@ -47,7 +54,10 @@ class _mcd3ScreenState extends State<mcd3Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('M.C.D. de un Número - Ejercicio 3')),
+      appBar: AppBar(
+        title: const Text('Cálculo del MCD - Ejercicio 3'),
+        backgroundColor: Colors.indigo,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -57,14 +67,30 @@ class _mcd3ScreenState extends State<mcd3Screen> {
               controller: _controllerNumero1,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
-                labelText: 'Ingresa un número entero',
+                labelText: 'Ingresa el primer número entero',
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 20),
+            TextField(
+              controller: _controllerNumero2,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'Ingresa el segundo número entero',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 30),
             ElevatedButton(
               onPressed: _mostrarResultados,
-              child: const Text('Calculo MCD'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.yellow,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              ),
+              child: const Text(
+                'Calcular MCD',
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ],
         ),

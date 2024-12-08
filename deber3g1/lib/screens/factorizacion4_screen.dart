@@ -37,7 +37,8 @@ class _Factorizacion4ScreenState extends State<Factorizacion4Screen> {
    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Factorización de un Número - Ejercicio 4')),
+      appBar: AppBar(title: const Text('Factorización de un Número - Ejercicio 4'),
+      backgroundColor: Colors.yellowAccent,),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -55,19 +56,6 @@ class _Factorizacion4ScreenState extends State<Factorizacion4Screen> {
             ElevatedButton(
               onPressed: _mostrarResultados,
               child: const Text('Factorial'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navegar a la pantalla PrimeScreen con un valor para 'step'
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PrimeScreen(step: 1), 
-                  ),
-                );
-              },
-              child: const Text('Ver Números Primos'),
             ),
           ],
         ),
