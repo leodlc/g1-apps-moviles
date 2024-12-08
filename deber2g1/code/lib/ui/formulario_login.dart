@@ -41,7 +41,8 @@ class _UserLoginFormState extends State<UserLoginForm> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Contraseña o usuario incorrecto.', style: TextStyle(color: Colors.white)),
+            content: Text('Contraseña o usuario incorrecto.',
+                style: TextStyle(color: Colors.white)),
             backgroundColor: Colors.red,
           ),
         );
@@ -54,8 +55,8 @@ class _UserLoginFormState extends State<UserLoginForm> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            'Login - Leo Empire.',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          'Login - Grupo 1.',
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.blueAccent,
         centerTitle: true,
@@ -92,8 +93,8 @@ class _UserLoginFormState extends State<UserLoginForm> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          prefixIcon:
-                          const Icon(Icons.person, color: Colors.blueAccent),
+                          prefixIcon: const Icon(Icons.person,
+                              color: Colors.blueAccent),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -111,7 +112,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                          const Icon(Icons.lock, color: Colors.blueAccent),
+                              const Icon(Icons.lock, color: Colors.blueAccent),
                         ),
                         obscureText: true,
                         validator: (value) {
@@ -134,22 +135,24 @@ class _UserLoginFormState extends State<UserLoginForm> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 15),
                             ),
                             child: const Text(
                               'Iniciar Sesión',
                               style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
+                                fontSize: 18,
+                                color: Colors.white,
                               ),
                             ),
                           ),
                           ElevatedButton(
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const UserCreationForm(),
+                                  builder: (context) =>
+                                      const UserCreationForm(),
                                 ),
                               );
                             },
@@ -158,13 +161,14 @@ class _UserLoginFormState extends State<UserLoginForm> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 15),
                             ),
                             child: const Text(
                               'Registro',
                               style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
+                                fontSize: 18,
+                                color: Colors.white,
                               ),
                             ),
                           ),
