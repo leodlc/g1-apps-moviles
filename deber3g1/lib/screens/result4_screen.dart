@@ -5,15 +5,15 @@ class Result4Screen extends StatelessWidget {
   final List<Map<String, int>> factorizacion;
 
   const Result4Screen({
-    Key? key,
+    super.key,
     required this.numero,
     required this.factorizacion,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Resultados')),
+      appBar: AppBar(title: const Text('Resultados')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -21,9 +21,9 @@ class Result4Screen extends StatelessWidget {
           children: [
             Text(
               'La factorización de $numero es:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
                 itemCount: factorizacion.length,

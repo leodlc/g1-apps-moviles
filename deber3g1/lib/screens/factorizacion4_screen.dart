@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import '../logic/factorizacion4.dart';
 import 'result4_screen.dart';
+import 'primo_screen.dart'; 
 
 class Factorizacion4Screen extends StatefulWidget {
+  const Factorizacion4Screen({super.key});
+
   @override
   _Factorizacion4ScreenState createState() => _Factorizacion4ScreenState();
 }
@@ -14,7 +17,7 @@ class _Factorizacion4ScreenState extends State<Factorizacion4Screen> {
     final numeroTexto = _controllerNumero.text.trim();
     if (numeroTexto.isEmpty || int.tryParse(numeroTexto) == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor ingresa un número válido')),
+        const SnackBar(content: Text('Por favor ingresa un número válido')),
       );
       return;
     }
@@ -31,7 +34,7 @@ class _Factorizacion4ScreenState extends State<Factorizacion4Screen> {
     );
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Factorización de un Número - Ejercicio 4')),
@@ -52,6 +55,19 @@ class _Factorizacion4ScreenState extends State<Factorizacion4Screen> {
             ElevatedButton(
               onPressed: _mostrarResultados,
               child: Text('Factorial'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Navegar a la pantalla PrimeScreen con un valor para 'step'
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PrimeScreen(step: 1), 
+                  ),
+                );
+              },
+              child: Text('Ver Números Primos'),
             ),
           ],
         ),

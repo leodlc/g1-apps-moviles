@@ -3,7 +3,10 @@ import 'screens/ascii1_screen.dart';
 import 'screens/factorial2_screen.dart';
 import 'screens/mcd3_screen.dart';
 import 'screens/factorizacion4_screen.dart';
+import 'screens/primo_screen.dart';
 import 'screens/info_Screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -29,24 +32,29 @@ class HomeScreen extends StatelessWidget {
   final List<Exercise> exers = [
     Exercise(
         name: 'Ejercicio 1',
-        icon: Icons.boy,
+        icon: Icons.electric_bolt,
         color: const Color.fromARGB(255, 9, 118, 219),
         route: ASCII1Screen()),
     Exercise(
         name: 'Ejercicio 2',
-        icon: Icons.shopping_bag,
+        icon:  FontAwesomeIcons.times,
         color: const Color.fromARGB(255, 134, 70, 132),
         route: Factorial2Screen()),
     Exercise(
         name: 'Ejercicio 3',
-        icon: Icons.architecture,
+        icon:  FontAwesomeIcons.divide,
         color: Colors.orange,
         route: mcd3Screen()),
     Exercise(
         name: 'Ejercicio 4',
-        icon: Icons.electric_bolt,
+        icon:  FontAwesomeIcons.equals,
         color: Colors.yellow,
         route: Factorizacion4Screen()),
+    Exercise(
+        name: 'Ejercicio 5',
+        icon: Icons.plus_one,
+        color: Colors.yellow,
+        route: PrimeScreen(step: 5)),
   ];
 
   @override
