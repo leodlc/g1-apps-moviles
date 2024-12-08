@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../logic/factorial2.dart';
 import 'result2_screen.dart';
 
 class Factorial2Screen extends StatefulWidget {
@@ -21,16 +22,19 @@ class _Factorial2ScreenState extends State<Factorial2Screen> {
     }
 
     final numero = int.parse(numeroTexto);
-    final factorial = //metodo para el factorial;
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            const Result2Screen()//(agregas aqui los parametros que necesites),
-              //ej: Result2Screen(numero: numero, factorial: factorial),
-      ),
-    );
+    try {
+      final factorial = FactorialCalculator.calculateFactorial(numero);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Result2Screen(numero: numero, factorial: factorial),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
   }
 
   @override

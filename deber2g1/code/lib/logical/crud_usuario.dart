@@ -5,9 +5,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class UserCrudController extends ChangeNotifier {
   final Dio _dio = Dio(
     BaseOptions(
-      // AQUI AGREGAN UN ARCHIVO .env con la ip de sus máquinas y el puerto de su servidor xampp
-      baseUrl:
-          "http://${dotenv.env['API_IP']}:${dotenv.env['API_PORT']}/users/",
+      // Configuración del backend desde variables de entorno
+      baseUrl: "http://${dotenv.env['API_IP']}:${dotenv.env['API_PORT']}/users/",
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
       headers: {"Content-Type": "application/json"},
@@ -16,7 +15,7 @@ class UserCrudController extends ChangeNotifier {
 
   // Lista de usuarios observable
   ValueNotifier<List<Map<String, dynamic>>> userListNotifier =
-      ValueNotifier([]);
+  ValueNotifier([]);
 
   /// Obtener todos los usuarios
   Future<void> getAllUsers() async {
@@ -34,30 +33,23 @@ class UserCrudController extends ChangeNotifier {
     }
   }
 
-  Future<Map<String, dynamic>> getUserById(String id) async {
-    try {
-      final response = await _dio.get('/$id');
-      if (response.statusCode == 200 && response.data != null) {
-        return Map<String, dynamic>.from(response.data);
-      }
-      throw Exception("Usuario no encontrado o respuesta inesperada.");
-    } on DioException catch (e) {
-      throw Exception("Error al obtener el usuario: ${_handleError(e)}");
-    }
-  }
-
   /// Crear un usuario
-  Future<bool> createUser(Map<String, String> userData) async {
+  Future<bool> createUser(Map<String, dynamic> userData) async {
     try {
-      final response = await _dio.post('/', data: userData);
+      // Validación y aseguramiento de tipos antes de enviar los datos
+      final sanitizedData = {
+        'name': userData['name']?.toString() ?? '',
+        'email': userData['email']?.toString() ?? '',
+        'password': userData['password']?.toString() ?? '',
+      };
+
+      final response = await _dio.post('/', data: sanitizedData);
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (response.data['message'] == "User created successfully") {
           // Recargar la lista después de crear el usuario
           await getAllUsers();
-
-          return true; // Usuario creado exitosamente
+          return true;
         } else {
-          notifyListeners();
           throw Exception('Respuesta inesperada del servidor');
         }
       } else {
@@ -74,7 +66,6 @@ class UserCrudController extends ChangeNotifier {
     try {
       final response = await _dio.delete('/$id');
       if (response.statusCode == 200) {
-        // Recargar la lista después de eliminar el usuario
         await getAllUsers();
         notifyListeners();
         return true;
@@ -86,31 +77,43 @@ class UserCrudController extends ChangeNotifier {
   }
 
   /// Actualizar un usuario por ID
-  /// Actualizar un usuario por ID
   Future<bool> updateUser(String id, Map<String, dynamic> updatedData) async {
     try {
-      final response = await _dio.put(
-        '/$id',
-        data: updatedData,
-      );
+      final sanitizedData = updatedData.map((key, value) => MapEntry(
+        key,
+        value?.toString(),
+      ));
+
+      final response = await _dio.put('/$id', data: sanitizedData);
       if (response.statusCode == 200) {
-        // Actualiza localmente la lista de usuarios
-        final updatedUser = response.data[
-            'data']; // Suponiendo que la API devuelve el usuario actualizado
+        final updatedUser = response.data['data'];
         final index =
-            userListNotifier.value.indexWhere((user) => user['id'] == id);
+        userListNotifier.value.indexWhere((user) => user['id'] == id);
 
         if (index != -1) {
           userListNotifier.value[index] =
-              Map<String, dynamic>.from(updatedUser);
+          Map<String, dynamic>.from(updatedUser);
           notifyListeners();
-          // Notifica cambios a la UI
         }
         return true;
       }
       throw Exception("Error al actualizar el usuario.");
     } on DioException catch (e) {
       throw Exception("Error al actualizar el usuario: ${_handleError(e)}");
+    }
+  }
+
+  /// Obtener un usuario por su ID
+  Future<Map<String, dynamic>?> getUserById(String id) async {
+    try {
+      final response = await _dio.get('/$id');
+      if (response.statusCode == 200 && response.data != null) {
+        return Map<String, dynamic>.from(response.data['data']);
+      } else {
+        throw Exception("Usuario no encontrado.");
+      }
+    } on DioException catch (e) {
+      throw Exception("Error al obtener el usuario: ${_handleError(e)}");
     }
   }
 

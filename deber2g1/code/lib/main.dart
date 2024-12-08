@@ -3,6 +3,7 @@ import 'package:provider/provider.dart'; // Importa Provider
 import 'logical/crud_usuario.dart'; // Asegúrate de usar el controlador correcto
 import 'ui/formulario_login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'ui/admin/lista_usuarios.dart';
 
 void main() async {
   // Cargar el archivo .env

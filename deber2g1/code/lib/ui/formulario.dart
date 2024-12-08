@@ -23,24 +23,36 @@ class _UserCreationFormState extends State<UserCreationForm> {
         'password': _passwordController.text,
       };
 
-      final success = await _controller.submitUserData(userData);
-      if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Usuario creado exitosamente',
-              style: TextStyle(color: Colors.white),
+      try {
+        final success = await _controller.submitUserData(userData);
+        if (success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Usuario creado exitosamente',
+                style: TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Colors.green,
             ),
-            backgroundColor: Colors.green,
-          ),
-        );
-        _formKey.currentState?.reset();
-      } else {
+          );
+          _formKey.currentState?.reset();
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Error al crear usuario',
+                style: TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text(
-              'Error al crear usuario',
-              style: TextStyle(color: Colors.white),
+              'Error inesperado: $e',
+              style: const TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.red,
           ),
@@ -89,7 +101,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                              const Icon(Icons.person, color: Colors.blueAccent),
+                          const Icon(Icons.person, color: Colors.blueAccent),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -107,7 +119,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                              const Icon(Icons.email, color: Colors.blueAccent),
+                          const Icon(Icons.email, color: Colors.blueAccent),
                         ),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
@@ -129,7 +141,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                              const Icon(Icons.lock, color: Colors.blueAccent),
+                          const Icon(Icons.lock, color: Colors.blueAccent),
                         ),
                         obscureText: true,
                         validator: (value) {
@@ -155,8 +167,8 @@ class _UserCreationFormState extends State<UserCreationForm> {
                         child: const Text(
                           'Crear Usuario',
                           style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
+                            fontSize: 16,
+                            color: Colors.white,
                           ),
                         ),
                       ),

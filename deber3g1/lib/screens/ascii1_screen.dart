@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../logic/ascii1.dart';
 import 'result1_screen.dart';
 
 class ASCII1Screen extends StatefulWidget {
@@ -10,17 +11,23 @@ class ASCII1Screen extends StatefulWidget {
 
 class _ASCII1ScreenState extends State<ASCII1Screen> {
   final TextEditingController _controllerInput = TextEditingController();
+  String? _error;
 
   void _mostrarResultados() {
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) =>
-              const Result1Screen()//(agregas aqui los parametros que necesites),
-        //ej: Result2Screen(numero: numero, factorial: factorial),
-      ),
-    );
+    final input = _controllerInput.text.trim();
+    try {
+      final asciiValue = ASCIIConverter.getASCIIValue(input);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Result1Screen(character: input, asciiValue: asciiValue),
+        ),
+      );
+    } catch (e) {
+      setState(() {
+        _error = e.toString();
+      });
+    }
   }
 
   @override
@@ -34,10 +41,10 @@ class _ASCII1ScreenState extends State<ASCII1Screen> {
           children: [
             TextField(
               controller: _controllerInput,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Ingresa un dato',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: 'Ingresa un carácter',
+                border: const OutlineInputBorder(),
+                errorText: _error,
               ),
             ),
             const SizedBox(height: 20),

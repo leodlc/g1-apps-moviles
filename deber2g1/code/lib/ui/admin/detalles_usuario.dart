@@ -15,25 +15,30 @@ class UserDetailsScreen extends StatelessWidget {
         title: const Text('Detalles del Usuario'),
         backgroundColor: Colors.blueAccent,
       ),
-      body: FutureBuilder<Map<String, dynamic>>(
+      body: FutureBuilder<Map<String, dynamic>?>(
         future: controller.getUserById(userId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator()); // Indicador de carga
           }
           if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
+            return Center(child: Text("Error: ${snapshot.error}")); // Manejo de errores
           }
-          final user = snapshot.data!;
+          if (!snapshot.hasData || snapshot.data == null) {
+            return const Center(child: Text("No se encontraron datos del usuario."));
+          }
+
+          final user = snapshot.data!; // Obtenemos los datos del usuario
+
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Username: ${user['username']}",
+                Text("Username: ${user['username'] ?? 'No disponible'}",
                     style: const TextStyle(fontSize: 18)),
                 const SizedBox(height: 8),
-                Text("Email: ${user['email']}",
+                Text("Email: ${user['email'] ?? 'No disponible'}",
                     style: const TextStyle(fontSize: 18)),
                 // Agrega más información si es necesario
               ],
