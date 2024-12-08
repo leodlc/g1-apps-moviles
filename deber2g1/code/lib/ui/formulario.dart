@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../logical/creacion_de_usuario.dart';
 
 class UserCreationForm extends StatefulWidget {
-  const UserCreationForm({Key? key}) : super(key: key);
+  const UserCreationForm({super.key});
 
   @override
   _UserCreationFormState createState() => _UserCreationFormState();
@@ -26,7 +26,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
       final success = await _controller.submitUserData(userData);
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text(
               'Usuario creado exitosamente',
               style: TextStyle(color: Colors.white),
@@ -37,7 +37,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
         _formKey.currentState?.reset();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text(
               'Error al crear usuario',
               style: TextStyle(color: Colors.white),
@@ -53,7 +53,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Crear Usuario'),
+        title: const Text('Crear Usuario'),
         backgroundColor: Colors.blueAccent,
       ),
       body: Center(
@@ -72,7 +72,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
+                      const Text(
                         'Formulario de Registro',
                         style: TextStyle(
                           fontSize: 22,
@@ -80,7 +80,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                           color: Colors.blueAccent,
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _nameController,
                         decoration: InputDecoration(
@@ -89,7 +89,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                              Icon(Icons.person, color: Colors.blueAccent),
+                              const Icon(Icons.person, color: Colors.blueAccent),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -98,7 +98,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -107,7 +107,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                              Icon(Icons.email, color: Colors.blueAccent),
+                              const Icon(Icons.email, color: Colors.blueAccent),
                         ),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
@@ -120,7 +120,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _passwordController,
                         decoration: InputDecoration(
@@ -129,7 +129,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                              Icon(Icons.lock, color: Colors.blueAccent),
+                              const Icon(Icons.lock, color: Colors.blueAccent),
                         ),
                         obscureText: true,
                         validator: (value) {
@@ -141,7 +141,7 @@ class _UserCreationFormState extends State<UserCreationForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       ElevatedButton(
                         onPressed: _handleSubmit,
                         style: ElevatedButton.styleFrom(
@@ -149,10 +149,10 @@ class _UserCreationFormState extends State<UserCreationForm> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 50, vertical: 15),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Crear Usuario',
                           style: TextStyle(
                               fontSize: 16,

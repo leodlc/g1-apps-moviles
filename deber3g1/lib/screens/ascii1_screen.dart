@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../logic/ascii1.dart';
 import 'result1_screen.dart';
 
 class ASCII1Screen extends StatefulWidget {
+  const ASCII1Screen({super.key});
+
   @override
   _ASCII1ScreenState createState() => _ASCII1ScreenState();
 }
@@ -16,7 +17,7 @@ class _ASCII1ScreenState extends State<ASCII1Screen> {
       context,
       MaterialPageRoute(
           builder: (context) =>
-              Result1Screen()//(agregas aqui los parametros que necesites),
+              const Result1Screen()//(agregas aqui los parametros que necesites),
         //ej: Result2Screen(numero: numero, factorial: factorial),
       ),
     );
@@ -25,7 +26,7 @@ class _ASCII1ScreenState extends State<ASCII1Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Caracter ASCII - Ejercicio 1')),
+      appBar: AppBar(title: const Text('Caracter ASCII - Ejercicio 1')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -34,15 +35,15 @@ class _ASCII1ScreenState extends State<ASCII1Screen> {
             TextField(
               controller: _controllerInput,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Ingresa un dato',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _mostrarResultados,
-              child: Text('Valor ASCII'),
+              child: const Text('Valor ASCII'),
             ),
           ],
         ),

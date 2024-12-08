@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Importa Provider
 import 'logical/crud_usuario.dart'; // Asegúrate de usar el controlador correcto
-import 'ui/admin/lista_usuarios.dart';
 import 'ui/formulario_login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -12,7 +11,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Necesario para TextInputFormatter
 
 class SixthScreen extends StatefulWidget {
+  const SixthScreen({super.key});
+
   @override
   _SixthScreenState createState() => _SixthScreenState();
 }
@@ -67,7 +69,7 @@ class _SixthScreenState extends State<SixthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tv Room - Cálculo de Árboles'),
+        title: const Text('Tv Room - Cálculo de Árboles'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -80,44 +82,44 @@ class _SixthScreenState extends State<SixthScreen> {
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Cantidad de Paltos',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TextField(
               controller: _limonesController,
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Cantidad de Limones',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TextField(
               controller: _chirimoyosController,
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Cantidad de Chirimoyos',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _calcularTotal,
-              child: Text('Calcular Total'),
+              child: const Text('Calcular Total'),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Text(
               _resultado,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ],

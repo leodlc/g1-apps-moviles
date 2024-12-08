@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FifthScreen extends StatefulWidget {
+  const FifthScreen({super.key});
+
   @override
   _FifthScreenState createState() => _FifthScreenState();
 }
@@ -48,7 +50,7 @@ class _FifthScreenState extends State<FifthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cálculo de Sueldo Mensual'),
+        title: const Text('Cálculo de Sueldo Mensual'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -58,40 +60,40 @@ class _FifthScreenState extends State<FifthScreen> {
             TextField(
               controller: _sueldoBaseController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Sueldo Base',
                 prefixIcon: Icon(Icons.monetization_on),
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TextField(
               controller: _ventasController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Ventas del Mes',
                 prefixIcon: Icon(Icons.shopping_cart),
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton.icon(
               onPressed: _calcularSueldo,
-              icon: Icon(Icons.calculate),
-              label: Text('Calcular Sueldo Mensual',
+              icon: const Icon(Icons.calculate),
+              label: const Text('Calcular Sueldo Mensual',
                   style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 95, 95, 95),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Text(
               _resultado,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SecondScreen extends StatefulWidget {
+  const SecondScreen({super.key});
+
   @override
   _SecondScreenState createState() => _SecondScreenState();
 }

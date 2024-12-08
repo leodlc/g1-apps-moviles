@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../logic/factorial2.dart';
 import 'result2_screen.dart';
 
 class Factorial2Screen extends StatefulWidget {
+  const Factorial2Screen({super.key});
+
   @override
   _Factorial2ScreenState createState() => _Factorial2ScreenState();
 }
@@ -14,7 +15,7 @@ class _Factorial2ScreenState extends State<Factorial2Screen> {
     final numeroTexto = _controllerNumero.text.trim();
     if (numeroTexto.isEmpty || int.tryParse(numeroTexto) == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor ingresa un número válido')),
+        const SnackBar(content: Text('Por favor ingresa un número válido')),
       );
       return;
     }
@@ -26,7 +27,7 @@ class _Factorial2ScreenState extends State<Factorial2Screen> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            Result2Screen()//(agregas aqui los parametros que necesites),
+            const Result2Screen()//(agregas aqui los parametros que necesites),
               //ej: Result2Screen(numero: numero, factorial: factorial),
       ),
     );
@@ -35,7 +36,7 @@ class _Factorial2ScreenState extends State<Factorial2Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Factorial de un Número - Ejercicio 2')),
+      appBar: AppBar(title: const Text('Factorial de un Número - Ejercicio 2')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -44,15 +45,15 @@ class _Factorial2ScreenState extends State<Factorial2Screen> {
             TextField(
               controller: _controllerNumero,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Ingresa un número entero',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _mostrarResultados,
-              child: Text('Factorial'),
+              child: const Text('Factorial'),
             ),
           ],
         ),

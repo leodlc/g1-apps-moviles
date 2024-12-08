@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Result2Screen extends StatelessWidget {
+  const Result2Screen({super.key});
+
 
 
 

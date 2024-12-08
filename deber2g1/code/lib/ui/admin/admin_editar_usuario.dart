@@ -4,7 +4,7 @@ import '../../logical/crud_usuario.dart';
 class AdminEditarUsuario extends StatefulWidget {
   final Map<String, dynamic> usuario;
 
-  const AdminEditarUsuario({Key? key, required this.usuario}) : super(key: key);
+  const AdminEditarUsuario({super.key, required this.usuario});
 
   @override
   State<AdminEditarUsuario> createState() => _AdminEditarUsuarioState();

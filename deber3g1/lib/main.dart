@@ -5,11 +5,11 @@ import 'screens/mcd3_screen.dart';
 import 'screens/factorizacion4_screen.dart';
 import 'screens/primo_screen.dart';
 import 'screens/info_Screen.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -34,27 +34,27 @@ class HomeScreen extends StatelessWidget {
         name: 'Ejercicio 1',
         icon: Icons.electric_bolt,
         color: const Color.fromARGB(255, 9, 118, 219),
-        route: ASCII1Screen()),
+        route: const ASCII1Screen()),
     Exercise(
         name: 'Ejercicio 2',
-        icon:  FontAwesomeIcons.times,
+        icon:  Icons.electric_bolt,
         color: const Color.fromARGB(255, 134, 70, 132),
-        route: Factorial2Screen()),
+        route: const Factorial2Screen()),
     Exercise(
         name: 'Ejercicio 3',
-        icon:  FontAwesomeIcons.divide,
+        icon:  Icons.electric_bolt,
         color: Colors.orange,
-        route: mcd3Screen()),
+        route: const mcd3Screen()),
     Exercise(
         name: 'Ejercicio 4',
-        icon:  FontAwesomeIcons.equals,
+        icon:  Icons.electric_bolt,
         color: Colors.yellow,
-        route: Factorizacion4Screen()),
+        route: const Factorizacion4Screen()),
     Exercise(
         name: 'Ejercicio 5',
         icon: Icons.plus_one,
         color: Colors.yellow,
-        route: PrimeScreen(step: 5)),
+        route: const PrimeScreen(step: 5)),
   ];
 
   @override
@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => InfoScreen()),
+                  MaterialPageRoute(builder: (context) => const InfoScreen()),
                 );
               },
             ),

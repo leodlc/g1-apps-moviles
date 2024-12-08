@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ThirdScreen extends StatefulWidget {
+  const ThirdScreen({super.key});
+
   @override
   _ThirdScreenState createState() => _ThirdScreenState();
 }

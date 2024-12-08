@@ -4,11 +4,11 @@ import '../../logical/crud_usuario.dart';
 class UserDetailsScreen extends StatelessWidget {
   final String userId;
 
-  const UserDetailsScreen({Key? key, required this.userId}) : super(key: key);
+  const UserDetailsScreen({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
-    final _controller = UserCrudController();
+    final controller = UserCrudController();
 
     return Scaffold(
       appBar: AppBar(
@@ -16,7 +16,7 @@ class UserDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.blueAccent,
       ),
       body: FutureBuilder<Map<String, dynamic>>(
-        future: _controller.getUserById(userId),
+        future: controller.getUserById(userId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

@@ -8,7 +8,7 @@ class InfoScreen extends StatelessWidget {
     // Definimos colores personalizados para un tema minimalista
     final accentColor = Colors.grey.shade800;
     final backgroundColor = Colors.grey.shade50;
-    final cardColor = Colors.white;
+    const cardColor = Colors.white;
 
     return Scaffold(
       appBar: AppBar(

@@ -3,7 +3,7 @@ import '../logical/login_usuario.dart';
 import 'formulario.dart';
 
 class UserLoginForm extends StatefulWidget {
-  const UserLoginForm({Key? key}) : super(key: key);
+  const UserLoginForm({super.key});
 
   @override
   _UserLoginFormState createState() => _UserLoginFormState();
@@ -25,7 +25,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
       final success = await _controller.submitUserLoginData(userData);
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text(
               'Entrada exitosa',
               style: TextStyle(color: Colors.white),
@@ -36,7 +36,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
         _formKey.currentState?.reset();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text(
               'Contraseña o usuario incorrecto.',
               style: TextStyle(color: Colors.white),
@@ -52,7 +52,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
             'Login - Leo Empire.',
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
@@ -75,7 +75,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
+                      const Text(
                         'Inicio de sesión',
                         style: TextStyle(
                           fontSize: 22,
@@ -83,7 +83,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
                           color: Colors.blueAccent,
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _userController,
                         decoration: InputDecoration(
@@ -92,7 +92,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                          Icon(Icons.person, color: Colors.blueAccent),
+                          const Icon(Icons.person, color: Colors.blueAccent),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -101,7 +101,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _passwordController,
                         decoration: InputDecoration(
@@ -110,7 +110,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           prefixIcon:
-                          Icon(Icons.lock, color: Colors.blueAccent),
+                          const Icon(Icons.lock, color: Colors.blueAccent),
                         ),
                         obscureText: true,
                         validator: (value) {
@@ -122,7 +122,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -133,9 +133,9 @@ class _UserLoginFormState extends State<UserLoginForm> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Iniciar Sesión',
                               style: TextStyle(
                                   fontSize: 18,
@@ -148,7 +148,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => UserCreationForm(),
+                                    builder: (context) => const UserCreationForm(),
                                 ),
                               );
                             },
@@ -157,9 +157,9 @@ class _UserLoginFormState extends State<UserLoginForm> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Registro',
                               style: TextStyle(
                                   fontSize: 18,

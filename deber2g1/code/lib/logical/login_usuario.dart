@@ -13,7 +13,7 @@ class UserLoginController {
   Future<bool> submitUserLoginData(Map<String, String> userData) async {
   // Aquí podrías integrar la llamada a una API REST en el futuro
   print("Datos enviados al backend: $userData");
-  await Future.delayed(Duration(seconds: 2)); // Simula un retraso de red
+  await Future.delayed(const Duration(seconds: 2)); // Simula un retraso de red
   return true; // Retorna true para indicar éxito
   }
 }

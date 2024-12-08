@@ -8,7 +8,7 @@ import 'screens/algoritmo6.dart';
 import 'screens/info.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,32 +33,32 @@ class HomeScreen extends StatelessWidget {
         name: 'Ejercicio 1',
         icon: Icons.boy,
         color: const Color.fromARGB(255, 9, 118, 219),
-        route: OneScreen()),
+        route: const OneScreen()),
     Exercise(
         name: 'Ejercicio 2',
         icon: Icons.shopping_bag,
         color: const Color.fromARGB(255, 134, 70, 132),
-        route: SecondScreen()),
+        route: const SecondScreen()),
     Exercise(
         name: 'Ejercicio 3',
         icon: Icons.architecture,
         color: Colors.orange,
-        route: ThirdScreen()),
+        route: const ThirdScreen()),
     Exercise(
         name: 'Ejercicio 4',
         icon: Icons.electric_bolt,
         color: Colors.yellow,
-        route: FourthScreen()),
+        route: const FourthScreen()),
     Exercise(
         name: 'Ejercicio 5',
         icon: Icons.attach_money,
         color: Colors.green,
-        route: FifthScreen()),
+        route: const FifthScreen()),
     Exercise(
         name: 'Ejercicio 6',
         icon: Icons.nature,
         color: const Color.fromARGB(255, 30, 111, 33),
-        route: SixthScreen()),
+        route: const SixthScreen()),
   ];
 
   @override
@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => InfoScreen()),
+                  MaterialPageRoute(builder: (context) => const InfoScreen()),
                 );
               },
             ),

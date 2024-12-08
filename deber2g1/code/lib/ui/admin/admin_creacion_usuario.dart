@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../logical/crud_usuario.dart';
 
 class AdminCreacionUsuario extends StatefulWidget {
-  const AdminCreacionUsuario({Key? key}) : super(key: key);
+  const AdminCreacionUsuario({super.key});
 
   @override
   State<AdminCreacionUsuario> createState() => _AdminCreacionUsuarioState();

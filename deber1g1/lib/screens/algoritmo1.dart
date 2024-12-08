@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class OneScreen extends StatefulWidget {
+  const OneScreen({super.key});
+
   @override
   _OneScreenState createState() => _OneScreenState();
 }

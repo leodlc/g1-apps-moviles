@@ -5,7 +5,7 @@ import 'result5_screen.dart';
 class PrimeScreen extends StatelessWidget {
   final int step;
 
-  const PrimeScreen({required this.step, Key? key}) : super(key: key);
+  const PrimeScreen({required this.step, super.key});
 
   @override
   Widget build(BuildContext context) {

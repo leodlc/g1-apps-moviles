@@ -3,6 +3,8 @@ import '../logic/mcd3.dart';
 import 'result3_screen.dart';
 
 class mcd3Screen extends StatefulWidget {
+  const mcd3Screen({super.key});
+
   @override
   _mcd3ScreenState createState() => _mcd3ScreenState();
 }
@@ -17,14 +19,14 @@ class _mcd3ScreenState extends State<mcd3Screen> {
 
     if (numeroTexto1.isEmpty || int.tryParse(numeroTexto1) == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor ingresa un número válido')),
+        const SnackBar(content: Text('Por favor ingresa un número válido')),
       );
       return;
     }
 
     if (numeroTexto2.isEmpty || int.tryParse(numeroTexto2) == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor ingresa un número válido')),
+        const SnackBar(content: Text('Por favor ingresa un número válido')),
       );
       return;
     }
@@ -45,7 +47,7 @@ class _mcd3ScreenState extends State<mcd3Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('M.C.D. de un Número - Ejercicio 3')),
+      appBar: AppBar(title: const Text('M.C.D. de un Número - Ejercicio 3')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -54,15 +56,15 @@ class _mcd3ScreenState extends State<mcd3Screen> {
             TextField(
               controller: _controllerNumero1,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Ingresa un número entero',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _mostrarResultados,
-              child: Text('Calculo MCD'),
+              child: const Text('Calculo MCD'),
             ),
           ],
         ),

@@ -5,7 +5,7 @@ import '../admin/admin_creacion_usuario.dart';
 import '../admin/admin_editar_usuario.dart';
 
 class ListaUsuarios extends StatefulWidget {
-  const ListaUsuarios({Key? key}) : super(key: key);
+  const ListaUsuarios({super.key});
 
   @override
   State<ListaUsuarios> createState() => _ListaUsuariosState();
