@@ -33,7 +33,8 @@ class _ASCII1ScreenState extends State<ASCII1Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Caracter ASCII - Ejercicio 1')),
+      appBar: AppBar(title: const Text('Caracter ASCII - Ejercicio 1'),
+        backgroundColor: Colors.lightBlue,),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

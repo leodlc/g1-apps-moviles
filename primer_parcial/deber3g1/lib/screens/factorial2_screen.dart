@@ -14,6 +14,7 @@ class _Factorial2ScreenState extends State<Factorial2Screen> {
 
   void _mostrarResultados() {
     final numeroTexto = _controllerNumero.text.trim();
+
     if (numeroTexto.isEmpty || int.tryParse(numeroTexto) == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Por favor ingresa un número válido')),
@@ -24,6 +25,7 @@ class _Factorial2ScreenState extends State<Factorial2Screen> {
     final numero = int.parse(numeroTexto);
     try {
       final factorial = FactorialCalculator.calculateFactorial(numero);
+
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -40,7 +42,10 @@ class _Factorial2ScreenState extends State<Factorial2Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Factorial de un Número - Ejercicio 2')),
+      appBar: AppBar(
+        title: const Text('Factorial de un Número - Ejercicio 2'),
+        backgroundColor: Colors.purple,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -57,7 +62,7 @@ class _Factorial2ScreenState extends State<Factorial2Screen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _mostrarResultados,
-              child: const Text('Factorial'),
+              child: const Text('Calcular Factorial'),
             ),
           ],
         ),

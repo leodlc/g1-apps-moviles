@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'screens/ascii1_screen.dart';
 import 'screens/factorial2_screen.dart';
 import 'screens/mcd3_screen.dart';
 import 'screens/factorizacion4_screen.dart';
 import 'screens/primo_screen.dart';
 import 'screens/info_Screen.dart';
-//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Home Menu',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -28,32 +28,32 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
-  // List of exercises with a color for each icon
+  // Lista de ejercicios con íconos de Font Awesome
   final List<Exercise> exers = [
     Exercise(
-        name: 'Ejercicio 1',
-        icon: Icons.electric_bolt,
-        color: const Color.fromARGB(255, 9, 118, 219),
+        name: 'ASCII',
+        icon: FontAwesomeIcons.code,
+        color: Colors.blue,
         route: const ASCII1Screen()),
     Exercise(
-        name: 'Ejercicio 2',
-        icon:  Icons.electric_bolt,
-        color: const Color.fromARGB(255, 134, 70, 132),
+        name: 'Factorial',
+        icon: FontAwesomeIcons.calculator,
+        color: Colors.purple,
         route: const Factorial2Screen()),
     Exercise(
-        name: 'Ejercicio 3',
-        icon:  Icons.electric_bolt,
+        name: 'MCD',
+        icon: FontAwesomeIcons.divide,
         color: Colors.orange,
-        route: const mcd3Screen()),
+        route: const MCD3Screen()),
     Exercise(
-        name: 'Ejercicio 4',
-        icon:  Icons.electric_bolt,
+        name: 'Factorización',
+        icon: FontAwesomeIcons.sitemap,
         color: Colors.yellow,
         route: const Factorizacion4Screen()),
     Exercise(
-        name: 'Ejercicio 5',
-        icon: Icons.plus_one,
-        color: Colors.yellow,
+        name: 'Primo',
+        icon: FontAwesomeIcons.sortNumericUp,
+        color: Colors.green,
         route: const PrimeScreen(step: 5)),
   ];
 
@@ -62,26 +62,41 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tarea 3'),
+        backgroundColor: Colors.indigo,
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Menú Principal',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+                gradient: LinearGradient(
+                  colors: [Colors.blue, Colors.indigo],
                 ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Icon(
+                    FontAwesomeIcons.clipboardList,
+                    size: 50,
+                    color: Colors.white,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Menú Principal',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.info),
-              title: const Text('Info'),
+              leading: const FaIcon(FontAwesomeIcons.infoCircle, color: Colors.blue),
+              title: const Text('Información'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -102,6 +117,10 @@ class HomeScreen extends StatelessWidget {
         itemCount: exers.length,
         itemBuilder: (context, index) {
           final exer = exers[index];
+
+          // Comprobamos si es el último elemento
+          final isLastItem = index == exers.length - 1;
+
           return GestureDetector(
             onTap: () {
               Navigator.push(
@@ -110,22 +129,40 @@ class HomeScreen extends StatelessWidget {
               );
             },
             child: Card(
-              elevation: 4,
+              elevation: 6,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(15),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    exer.icon,
-                    size: 50,
-                    color:
-                    exer.color,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [exer.color.withOpacity(0.7), exer.color],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  const SizedBox(height: 10),
-                  Text(exer.name, style: const TextStyle(fontSize: 16)),
-                ],
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  mainAxisAlignment: isLastItem
+                      ? MainAxisAlignment.center // Centrado solo para el último elemento
+                      : MainAxisAlignment.center,
+                  children: [
+                    FaIcon(
+                      exer.icon,
+                      size: 50,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      exer.name,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
@@ -141,9 +178,10 @@ class Exercise {
   final Color color;
   final Widget route;
 
-  Exercise(
-      {required this.name,
-        required this.icon,
-        required this.color,
-        required this.route});
+  Exercise({
+    required this.name,
+    required this.icon,
+    required this.color,
+    required this.route,
+  });
 }
