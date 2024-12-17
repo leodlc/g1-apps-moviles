@@ -2,40 +2,69 @@ import 'package:flutter/material.dart';
 import '../controllers/mis_creaciones_controller.dart';
 import '../models/datos_model.dart';
 
-class CreacionFormulario extends StatefulWidget {
+class EditarFormulario extends StatefulWidget {
   final String tipo; // Puede ser 'personajes', 'comics', 'peliculas'
-  const CreacionFormulario({Key? key, required this.tipo}) : super(key: key);
+  final Datos datos; // Datos existentes para pre-cargar el formulario
+  final String id; // ID del elemento a actualizar
+
+  const EditarFormulario({
+    Key? key,
+    required this.tipo,
+    required this.datos,
+    required this.id,
+  }) : super(key: key);
 
   @override
-  State<CreacionFormulario> createState() => _CreacionFormularioState();
+  State<EditarFormulario> createState() => _EditarFormularioState();
 }
 
-class _CreacionFormularioState extends State<CreacionFormulario> {
+class _EditarFormularioState extends State<EditarFormulario> {
   final _formKey = GlobalKey<FormState>();
-  final _nombreController = TextEditingController();
-  final _imagenController = TextEditingController();
-  final _infoController = TextEditingController();
+  late TextEditingController _nombreController;
+  late TextEditingController _imagenController;
+  late TextEditingController _infoController;
 
   final MisCreacionesController _controller = MisCreacionesController();
 
-  void _guardar() async {
+  @override
+  void initState() {
+    super.initState();
+
+    // Inicializar los controladores con los datos existentes
+    _nombreController = TextEditingController(text: widget.datos.nombre);
+    _imagenController = TextEditingController(text: widget.datos.imagen);
+    _infoController =
+        TextEditingController(text: widget.datos.infoAdicional ?? '');
+  }
+
+  @override
+  void dispose() {
+    // Limpiar los controladores
+    _nombreController.dispose();
+    _imagenController.dispose();
+    _infoController.dispose();
+    super.dispose();
+  }
+
+  void _actualizar() async {
     if (_formKey.currentState!.validate()) {
-      final nuevoDato = Datos(
+      final datosActualizados = Datos(
         nombre: _nombreController.text,
         imagen: _imagenController.text,
         infoAdicional: _infoController.text,
       );
 
       try {
-        // Envía solo el objeto 'nuevoDato' al controlador
-        await _controller.crearDato(widget.tipo, nuevoDato);
+        // Llamar al método actualizar del controlador
+        await _controller.actualizarPelicula(widget.id, datosActualizados);
+
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Creación exitosa')),
+          const SnackBar(content: Text('Actualización exitosa')),
         );
-        Navigator.pop(context);
+        Navigator.pop(context); // Regresar a la pantalla anterior
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+          SnackBar(content: Text('Error al actualizar: $e')),
         );
       }
     }
@@ -46,14 +75,14 @@ class _CreacionFormularioState extends State<CreacionFormulario> {
     return Scaffold(
       backgroundColor: const Color(0xFF151313), // Fondo negro personalizado
       appBar: AppBar(
-        backgroundColor: const Color(0xFF151313), // Fondo negro del AppBar
+        backgroundColor: const Color(0xFF151313),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFF852221)),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'CREAR ${widget.tipo.toUpperCase()}',
+          'EDITAR ${widget.tipo.toUpperCase()}',
           style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -89,16 +118,14 @@ class _CreacionFormularioState extends State<CreacionFormulario> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        const Color(0xFF852221), // Botón rojo personalizado
+                    backgroundColor: const Color(0xFF852221),
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(8), // Bordes redondeados
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  onPressed: _guardar,
+                  onPressed: _actualizar,
                   child: const Text(
-                    'Guardar',
+                    'Actualizar',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
