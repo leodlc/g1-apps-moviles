@@ -46,6 +46,13 @@ class _InfoPersonajeState extends State<InfoPersonaje> {
       appBar: AppBar(
         title: Text(widget.personaje.name),
         backgroundColor: Colors.redAccent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pop(context); // Regresa a la pantalla anterior
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
