@@ -3,7 +3,7 @@ import 'views/menu.dart';
 import 'views/personajes/lista_personajes.dart';
 import 'views/comics/lista_comics.dart';
 import 'views/peliculas/lista_peliculas.dart';
-import 'views/creacion_formulario.dart'; // Importa el formulario reutilizable
+//import 'views/creacion_formulario.dart'; // Importa el formulario reutilizable
 
 void main() {
   runApp(const MarvelApp());
@@ -23,7 +23,7 @@ class MarvelApp extends StatelessWidget {
         '/personajes': (context) => const ListaPersonajes(),
         '/comics': (context) => const ListaComics(),
         '/peliculas': (context) => const ListaPeliculas(),
-        '/crear': (context) => const CreacionFormulario(tipo: 'comics'),
+        /* '/crear': (context) => const CreacionFormulario(tipo: 'peliculas'), */
       },
     );
   }

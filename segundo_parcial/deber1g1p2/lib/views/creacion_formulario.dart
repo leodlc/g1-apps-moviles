@@ -53,7 +53,7 @@ class _CreacionFormularioState extends State<CreacionFormulario> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'CREAR {${widget.tipo.toUpperCase()}}',
+          'CREAR ${widget.tipo.toUpperCase()}',
           style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,

@@ -1,9 +1,11 @@
 class Datos {
+  final String id; // ID de la película
   final String nombre;
   final String imagen;
   final String infoAdicional;
 
   Datos({
+    this.id = '', // Valor por defecto vacío
     required this.nombre,
     required this.imagen,
     required this.infoAdicional,
@@ -14,18 +16,21 @@ class Datos {
     switch (tipo) {
       case 'personajes':
         return Datos(
+          id: json['_id'] ?? '',
           nombre: json['nombrePersonaje'] ?? '',
           imagen: json['imagenpersonaje'] ?? '',
           infoAdicional: json['infoAdicional'] ?? '',
         );
       case 'peliculas':
         return Datos(
+          id: json['_id'] ?? '',
           nombre: json['nombrePelicula'] ?? '',
           imagen: json['imagenPelicula'] ?? '',
           infoAdicional: json['infoAdicional'] ?? '',
         );
       case 'comics':
         return Datos(
+          id: json['_id'] ?? '',
           nombre: json['nombreComic'] ?? '',
           imagen: json['imagenComic'] ?? '',
           infoAdicional: json['infoAdicional'] ?? '',
