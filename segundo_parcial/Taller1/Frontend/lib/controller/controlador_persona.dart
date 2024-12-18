@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import '../model/modelo_persona.dart';
 
 class PersonaService {
-  final String baseUrl = "http://10.40.24.49:5000/api/personas"; // Usa tu IP
+  final String baseUrl = "http://localhost:5000/api/personas"; // Usa tu IP
 
   // Obtener todas las personas
   Future<List<Persona>> obtenerPersonas() async {
