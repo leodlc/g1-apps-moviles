@@ -40,8 +40,8 @@ wss.on('connection', (ws) => {
                 }
             });
         } else if (data.action === 'play_media') {
-        /// Reproducir contenido multimedia
-            
+            // Reproducir contenido multimedia
+           
         } else {
             ws.send(JSON.stringify({ status: 'error', message: 'Acción no reconocida' }));
         }
