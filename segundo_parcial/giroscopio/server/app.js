@@ -41,7 +41,14 @@ wss.on('connection', (ws) => {
             });
         } else if (data.action === 'play_media') {
             // Reproducir contenido multimedia
-           
+            exec(`start ${data.file}`, (error) => {
+                if (error) {
+                    console.error('Error al reproducir el archivo:', error);
+                    ws.send(JSON.stringify({ status: 'error', message: 'No se pudo reproducir el archivo' }));
+                } else {
+                    ws.send(JSON.stringify({ status: 'success', message: 'Archivo reproducido' }));
+                }
+            });
         } else {
             ws.send(JSON.stringify({ status: 'error', message: 'Acción no reconocida' }));
         }
