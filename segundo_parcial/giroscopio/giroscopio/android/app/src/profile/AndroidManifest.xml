@@ -1,7 +1,33 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- The INTERNET permission is required for development. Specifically,
-         the Flutter tool needs it to communicate with the running application
-         to allow setting breakpoints, to provide hot reload, etc.
-    -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.giroscopio">
+
+    <!-- Permiso para acceder a Internet, si lo necesitas -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Permiso para acceder a sensores relacionados con la ubicación, por si lo necesitas en el futuro -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:label="giroscopio"
+        android:name="io.flutter.app.FlutterApplication"
+        android:theme="@style/LaunchTheme"
+        android:hardwareAccelerated="true"
+        android:windowSoftInputMode="adjustResize">
+        <meta-data
+            android:name="io.flutter.embedding.android.ExperimentalDartVMOptions"
+            android:value="true" />
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|screenLayout|orientation|screenWidth|screenHeight"
+            android:label="Giroscopio"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
 </manifest>
