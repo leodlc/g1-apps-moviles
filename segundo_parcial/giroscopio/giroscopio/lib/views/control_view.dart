@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../controllers/gyroscope_controller.dart';
 import '../controllers/websocket_controller.dart';
+import 'dart:async'; // Necesario para controlar el tiempo de espera
 
 class ControlView extends StatefulWidget {
   @override
@@ -12,6 +13,12 @@ class _ControlViewState extends State<ControlView> {
   final WebSocketController _webSocketController = WebSocketController();
   String _command = "Esperando comando...";
   String _gyroscopeData = "Sin datos"; // Para mostrar los datos del giroscopio
+  bool _canSendCommand = true; // Control para evitar múltiples envíos
+
+  // Listas para promediar los valores
+  List<double> _xValues = [];
+  List<double> _yValues = [];
+  List<double> _zValues = [];
 
   @override
   void initState() {
@@ -20,22 +27,40 @@ class _ControlViewState extends State<ControlView> {
 
     // Escuchar los datos del giroscopio
     _gyroController.getGyroscopeData().listen((data) {
-      // Mostrar los datos del giroscopio
+      // Agregar valores actuales a las listas
+      _xValues.add(data.x);
+      _yValues.add(data.y);
+      _zValues.add(data.z);
+
+      // Mantener solo los últimos 10 valores
+      if (_xValues.length > 10) _xValues.removeAt(0);
+      if (_yValues.length > 10) _yValues.removeAt(0);
+      if (_zValues.length > 10) _zValues.removeAt(0);
+
+      // Calcular los promedios
+      double avgX = _xValues.reduce((a, b) => a + b) / _xValues.length;
+      double avgY = _yValues.reduce((a, b) => a + b) / _yValues.length;
+      double avgZ = _zValues.reduce((a, b) => a + b) / _zValues.length;
+
+      // Mostrar los valores promedio
       setState(() {
         _gyroscopeData =
-            "X: ${data.x.toStringAsFixed(2)}, Y: ${data.y.toStringAsFixed(2)}, Z: ${data.z.toStringAsFixed(2)}";
+            "X: ${avgX.toStringAsFixed(2)}, Y: ${avgY.toStringAsFixed(2)}, Z: ${avgZ.toStringAsFixed(2)}";
       });
 
-      // Detectar movimientos y enviar comandos
-      if (data.x > 0.5) {
-        _sendCommand('{"action": "open_url", "url": "https://www.google.com"}',
-            "Abrir Google");
-      } else if (data.y > 0.5) {
-        _sendCommand(
-            '{"action": "open_app", "command": "start winword"}', "Abrir Word");
-      } else if (data.z > 0.5) {
-        _sendCommand('{"action": "open_app", "command": "start wmplayer"}',
-            "Abrir Reproductor Multimedia");
+      // Detectar movimientos y enviar comandos con aplicaciones livianas
+      if (_canSendCommand) {
+        if (avgX > 2.0) {
+          _sendCommand(
+              '{"action": "open_url", "url": "https://www.google.com"}',
+              "Abrir Google");
+        } else if (avgY > 2.0) {
+          _sendCommand('{"action": "open_app", "command": "notepad"}',
+              "Abrir Bloc de Notas");
+        } else if (avgZ > 2.0) {
+          _sendCommand(
+              '{"action": "open_app", "command": "calc"}', "Abrir Calculadora");
+        }
       }
     });
   }
@@ -44,6 +69,12 @@ class _ControlViewState extends State<ControlView> {
     _webSocketController.sendMessage(message);
     setState(() {
       _command = "Comando enviado: $actionDescription";
+    });
+
+    // Bloquear nuevos comandos durante 10 segundos
+    _canSendCommand = false;
+    Timer(Duration(seconds: 5), () {
+      _canSendCommand = true; // Reactivar después de 10 segundos
     });
   }
 
