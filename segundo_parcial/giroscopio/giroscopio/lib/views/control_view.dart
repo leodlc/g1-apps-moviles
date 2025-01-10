@@ -11,29 +11,39 @@ class _ControlViewState extends State<ControlView> {
   final GyroscopeController _gyroController = GyroscopeController();
   final WebSocketController _webSocketController = WebSocketController();
   String _command = "Esperando comando...";
+  String _gyroscopeData = "Sin datos"; // Para mostrar los datos del giroscopio
 
   @override
   void initState() {
     super.initState();
-    // Conectar con el servidor WebSocket (ajusta la URL a la dirección de tu servidor)
-    _webSocketController.connect("ws://<ip_del_computador>:<puerto>");
+    _webSocketController.connect("ws://192.168.100.33:8080");
 
-    // Escuchar mensajes del WebSocket
-    _webSocketController.messages.listen((message) {
-      setState(() {
-        _command = message;
-      });
-    });
-
-    // Escuchar el giroscopio
+    // Escuchar los datos del giroscopio
     _gyroController.getGyroscopeData().listen((data) {
-      // Aquí es donde asociamos los movimientos del giroscopio con comandos específicos
-      if (data.x > 1) {
-        _webSocketController.sendMessage("Abrir página web");
-      } else if (data.y > 1) {
-        _webSocketController.sendMessage("Reproducir música");
+      // Mostrar los datos del giroscopio
+      setState(() {
+        _gyroscopeData =
+            "X: ${data.x.toStringAsFixed(2)}, Y: ${data.y.toStringAsFixed(2)}, Z: ${data.z.toStringAsFixed(2)}";
+      });
+
+      // Detectar movimientos y enviar comandos
+      if (data.x > 0.5) {
+        _sendCommand('{"action": "open_url", "url": "https://www.google.com"}',
+            "Abrir Google");
+      } else if (data.y > 0.5) {
+        _sendCommand(
+            '{"action": "open_app", "command": "start winword"}', "Abrir Word");
+      } else if (data.z > 0.5) {
+        _sendCommand('{"action": "open_app", "command": "start wmplayer"}',
+            "Abrir Reproductor Multimedia");
       }
-      // Agregar más condiciones según sea necesario para otros comandos
+    });
+  }
+
+  void _sendCommand(String message, String actionDescription) {
+    _webSocketController.sendMessage(message);
+    setState(() {
+      _command = "Comando enviado: $actionDescription";
     });
   }
 
@@ -51,14 +61,10 @@ class _ControlViewState extends State<ControlView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Comando enviado: $_command"),
+            Text(_command, style: TextStyle(fontSize: 18)),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                _webSocketController.sendMessage("Abrir página web");
-              },
-              child: Text("Enviar comando: Abrir Página Web"),
-            ),
+            Text("Datos del Giroscopio", style: TextStyle(fontSize: 16)),
+            Text(_gyroscopeData, style: TextStyle(fontSize: 16)),
           ],
         ),
       ),

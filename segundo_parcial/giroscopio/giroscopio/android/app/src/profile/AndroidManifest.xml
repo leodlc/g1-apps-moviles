@@ -9,6 +9,7 @@
 
     <application
         android:label="giroscopio"
+        android:usesCleartextTraffic="true"
         android:name="io.flutter.app.FlutterApplication"
         android:theme="@style/LaunchTheme"
         android:hardwareAccelerated="true"

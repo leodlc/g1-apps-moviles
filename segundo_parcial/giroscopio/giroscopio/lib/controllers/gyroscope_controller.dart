@@ -1,10 +1,11 @@
-import 'package:sensors/sensors.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 import '../models/gyroscope_model.dart';
 
 class GyroscopeController {
-  // Función para obtener los datos del giroscopio
   Stream<GyroscopeData> getGyroscopeData() {
-    return gyroscopeEvents.map((event) {
+    return gyroscopeEvents.map((GyroscopeEvent event) {
+      print(
+          'Eje X: ${event.x}, Eje Y: ${event.y}, Eje Z: ${event.z}'); // Depuración
       return GyroscopeData(x: event.x, y: event.y, z: event.z);
     });
   }
