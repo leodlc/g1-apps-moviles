@@ -20,6 +20,7 @@ class _ControlViewState extends State<ControlView> {
   String _command = "Esperando comando...";
   String _gyroscopeData = "Sin datos";
   bool _canSendCommand = true;
+  String _actionDescription = "";
 
   bool _showGoogleIcon = false;
   bool _showWordIcon = false;
@@ -65,7 +66,7 @@ class _ControlViewState extends State<ControlView> {
           _toggleIcon("word");
         } else if (avgZ > 1.0) {
           _sendCommand('{"action": "open_app", "command": "start wmplayer"}',
-              "Abrir reproductor windows media");
+              "Abrir windows media");
           _toggleIcon("music");
         }
       }
@@ -75,7 +76,8 @@ class _ControlViewState extends State<ControlView> {
   void _sendCommand(String message, String actionDescription) {
     _webSocketController.sendMessage(message);
     setState(() {
-      _command = "Comando enviado: $actionDescription";
+      _command = "Esperando comando...";
+      _actionDescription = actionDescription;
     });
 
     _canSendCommand = false;
@@ -123,6 +125,45 @@ class _ControlViewState extends State<ControlView> {
         ),
         child: Column(
           children: [
+            Spacer(flex: 1), // Espaciador al inicio
+            // Título
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: Column(
+                children: [
+                  Text(
+                    "Control del computador",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      /* fontFamily: 'Montserrat', */
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    "Grupo 1",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      /* fontFamily: 'Montserrat', */
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    "NRC: 2512",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      /* fontFamily: 'Montserrat', */
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Spacer(flex: 2),
             // Iconos animados con contenedor de tamaño fijo
             Container(
@@ -162,31 +203,45 @@ class _ControlViewState extends State<ControlView> {
               ),
             ),
             Spacer(flex: 1),
-            // Texto alineado más arriba pero fijo
+            // Texto alineado centrado
             Column(
               children: [
                 Text(
                   _command,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
-                    color: Color.fromRGBO(56, 189, 248, 1),
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 20),
+                FadeIn(
+                  child: Text(
+                    _actionDescription,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(56, 189, 248, 1),
+                    ),
                   ),
                 ),
                 SizedBox(height: 20),
                 Text(
                   "Datos del Giroscopio",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
-                    color: Color.fromRGBO(56, 189, 248, 1),
+                    color: Colors.white,
                   ),
                 ),
                 Text(
                   _gyroscopeData,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'GaugeMono',
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Color.fromRGBO(56, 189, 248, 1),
+                    color: Colors.white,
                   ),
                 ),
               ],
