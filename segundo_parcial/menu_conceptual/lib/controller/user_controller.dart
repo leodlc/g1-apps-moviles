@@ -1,11 +1,11 @@
-import 'package:menu_conceptual/model/user_model.dart';
+import '../model/user_model.dart';
 
 class UserController {
-  User getUser() {
+  User getUserData() {
     return User(
-      name: 'Josué',
-      username: '@josue123',
-      photoUrl: 'assets/user.jpg',
+      name: 'Josué Pérez',
+      username: 'joseperez',
+      profileImage: 'assets/images/profile.jpg', // Puedes cambiar la ruta de la imagen
     );
   }
 }
