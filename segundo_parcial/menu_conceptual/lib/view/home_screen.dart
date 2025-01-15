@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../controller/menu_controller.dart';
 import '../controller/user_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../model/menu_option_model.dart';
 import '../view/map_screen.dart';
 
@@ -52,10 +53,8 @@ class HomeScreen extends StatelessWidget {
         ],
         onTap: (index) {
           if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MapScreen()), // NAVEGACIÓN CORRECTA A MAPSCREEN
-            );
+            // Llamar a la función 'launchURL' desde la instancia 'appMenuController'
+            appMenuController.launchURL('https://maps.app.goo.gl/KCseY3fRXznkNapPA');
           }
         },
       ),
