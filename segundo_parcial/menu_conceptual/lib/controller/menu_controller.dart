@@ -13,21 +13,23 @@ class AppMenuController {
         title: 'Pagos de servicios básicos',
         icon: Icons.payment,
         onTap: () {
-          launchURL('https://www.pichincha.com/detalle-producto/pymes-servicios-pagos-de-servicios-publicos-y-privados');  // Reemplaza con la URL real
+          launchURL(
+              'https://www.pichincha.com/detalle-producto/pymes-servicios-pagos-de-servicios-publicos-y-privados'); // Reemplaza con la URL real
         },
       ),
       MenuOption(
         title: 'Empresa eléctrica',
         icon: Icons.lightbulb,
         onTap: () {
-          launchURL('https://www.empresa-electrica.com');  // URL de la empresa eléctrica
+          launchURL(
+              'https://www.empresa-electrica.com'); // URL de la empresa eléctrica
         },
       ),
       MenuOption(
         title: 'CNT',
         icon: Icons.phone,
         onTap: () {
-          launchURL('https://www.cnt.com.ec');  // URL de CNT
+          launchURL('https://www.cnt.com.ec'); // URL de CNT
         },
       ),
     ];

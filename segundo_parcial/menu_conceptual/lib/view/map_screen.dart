@@ -1,37 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class MapScreen extends StatefulWidget {
-  @override
-  _MapScreenState createState() => _MapScreenState();
-}
-
-class _MapScreenState extends State<MapScreen> {
-  late GoogleMapController mapController;
-  final LatLng _center = const LatLng(-0.1807, -78.4678); // Coordenadas de ESPE (Quito)
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
+class MapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Ubicación ESPE")),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 14.0,
+      backgroundColor: Colors.black, // Fondo principal negro
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
+        /* title: Text(
+          "Ubicación ESPE",
+          style: TextStyle(
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+        ), */
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Toca para ver la ubicación",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400),
+            ),
+            SizedBox(height: 16),
+            GestureDetector(
+              onTap: _launchGoogleMaps,
+              child: Lottie.asset(
+                'ubi.json',
+                fit: BoxFit.contain,
+                height: MediaQuery.of(context).size.height * 0.4,
+                width: MediaQuery.of(context).size.width * 0.8,
+              ),
+            ),
+          ],
         ),
-        markers: {
-          Marker(
-            markerId: MarkerId("espe"),
-            position: _center,
-            infoWindow: InfoWindow(title: "ESPE - Quito"),
-          ),
-        },
       ),
     );
+  }
+
+  void _launchGoogleMaps() async {
+    const url = 'https://maps.app.goo.gl/KCseY3fRXznkNapPA';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'No se puede abrir la URL: $url';
+    }
   }
 }
