@@ -122,6 +122,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () => _launchURL(
                         'https://www.eeq.com.ec/consulte-su-factura'),
                   ),
+                  ListTile(
+                    leading: Icon(Icons.phone, color: Colors.white),
+                    title: Text('CNT', style: TextStyle(color: Colors.white)),
+                    onTap: () => _launchURL('https://www.cnt.com.ec'),
+                  ),
                 ],
               ),
             ),
