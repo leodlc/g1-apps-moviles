@@ -19,9 +19,9 @@
         android:id="@+id/et_event_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#050505"
+        android:backgroundTint="#D5ED9F"
         android:hint="Ejemplo: Cumpleaños"
-        android:backgroundTint="@color/black"
-        android:background="#D5ED9F"
         android:padding="8dp" />
 
     <!-- Selector de fecha -->

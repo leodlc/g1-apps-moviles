@@ -1,16 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/holo_blue_light"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/widget_background">
 
-    <TextView
-        android:id="@+id/widget_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Días restantes: 0"
-        android:textSize="16sp"
-        android:textColor="@android:color/white" />
-</LinearLayout>
+    <!-- Contenedor principal del widget -->
+    <LinearLayout
+        android:id="@+id/widget_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:padding="16dp"
+        android:elevation="4dp"
+        android:clipToPadding="false">
+
+        <!-- Título del evento -->
+        <TextView
+            android:id="@+id/widget_event_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Título del evento"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+
+        <!-- Contenedor de días y horas -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <!-- Número de días -->
+            <TextView
+                android:id="@+id/widget_event_days_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <!-- Texto "Días" -->
+
+            <!-- Número de horas -->
+
+            <TextView
+                android:id="@+id/widget_event_days_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="Días"
+                android:textColor="#373636"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/widget_event_hours_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <!-- Texto "Horas" -->
+            <TextView
+                android:id="@+id/widget_event_hours_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Horas"
+                android:textColor="#373636"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Fecha del evento -->
+        <TextView
+            android:id="@+id/widget_event_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="2025-01-20"
+            android:textColor="#373636"
+            android:textSize="16sp" />
+
+        <!-- Navegación y botón de añadir -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <!-- Botón Anterior -->
+            <ImageButton
+                android:id="@+id/widget_prev_event"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="Evento anterior"
+                android:src="@drawable/baseline_arrow_back_ios_new_24"
+                android:tint="#050505" />
+
+            <!-- Botón Añadir Evento -->
+            <ImageButton
+                android:id="@+id/widget_add_event"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="@null"
+                android:contentDescription="Añadir evento"
+                android:src="@drawable/baseline_add_circle_24" />
+
+            <!-- Botón Siguiente -->
+            <ImageButton
+                android:id="@+id/widget_next_event"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="Evento siguiente"
+                android:src="@drawable/baseline_arrow_forward_ios_24"
+                android:tint="#050505" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,13 @@
+<resources>
+    <string-array name="widget_colors">
+        <item>#FFCFCF</item>
+        <item>#E3F0AF</item>
+        <item>#C6E7FF</item>
+        <item>#FFBB86FC</item>
+        <item>#C0C78C</item>
+        <item>#91DDCF</item>
+        <item>#FFC0CB</item>
+        <item>#FFA07A</item>
+        <item>#F19ED2</item>
+    </string-array>
+</resources>

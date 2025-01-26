@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             String formattedDate = year + "-" + String.format("%02d", month + 1) + "-" + String.format("%02d", day);
-            addEvent(eventName, formattedDate);
+            addEvent(eventName, formattedDate, "#FFFFFF"); // Usar blanco como color predeterminado
             renderEvents();
             saveEvents();
             notifyWidgetUpdate();
@@ -102,11 +103,14 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void addEvent(String title, String date) {
+    private void addEvent(String title, String date, String color) {
         Map<String, String> event = new HashMap<>();
         event.put("title", title);
         event.put("date", date);
+        event.put("color", color);
         events.add(event);
+        saveEvents();
+        notifyWidgetUpdate();
     }
 
     private void renderEvents() {
@@ -123,9 +127,13 @@ public class MainActivity extends AppCompatActivity {
 
             tvTitle.setText(event.get("title"));
             tvDate.setText(event.get("date"));
-            int daysRemaining = DateCalculator.calculateDaysLeft(event.get("date"));
-            tvDays.setText(daysRemaining + " Días");
 
+            // Cálculo de días y horas restantes
+            int daysRemaining = DateCalculator.calculateDaysLeft(event.get("date"));
+            int hoursRemaining = DateCalculator.calculateHoursLeft(event.get("date"));
+            tvDays.setText(daysRemaining + " Días " + hoursRemaining + " Horas");
+
+            // Colores de fondo dinámicos
             switch (i % 3) {
                 case 0:
                     eventView.setBackgroundColor(getResources().getColor(R.color.item_color_1));
@@ -142,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void saveEvents() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("event_count", events.size());
@@ -150,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
             Map<String, String> event = events.get(i);
             editor.putString("event_title_" + i, event.get("title"));
             editor.putString("event_date_" + i, event.get("date"));
+            editor.putString("event_color_" + i, event.get("color"));
         }
 
         editor.apply();
@@ -161,9 +171,16 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < eventCount; i++) {
             String title = sharedPreferences.getString("event_title_" + i, "");
             String date = sharedPreferences.getString("event_date_" + i, "");
-            addEvent(title, date);
+            String color = sharedPreferences.getString("event_color_" + i, getRandomColor(this)); // Usar color aleatorio si no existe
+            addEvent(title, date, color);
         }
     }
+    private String getRandomColor(Context context) {
+        String[] colors = context.getResources().getStringArray(R.array.widget_colors);
+        Random random = new Random();
+        return colors[random.nextInt(colors.length)];
+    }
+
 
     private void notifyWidgetUpdate() {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);

@@ -21,8 +21,8 @@
         android:id="@+id/tv_event_days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0 Días"
-        android:textSize="14sp"
+        android:text="0 Días 0 Horas"
+        android:textSize="16sp"
         android:layout_marginTop="4dp"
         android:textColor="@color/black" />
 
