@@ -1,0 +1,36 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+logs/*.log
+debug.log
+error.log
+*.log.*
+
+# Directorios y archivos de construcción
+dist/
+build/
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Caché
+.cache/
+.tmp/
+
+# Configuración del editor y del sistema operativo
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claves y credenciales sensibles
+grupo1-4383c-firebase-adminsdk-*
+firebase.json
