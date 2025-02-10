@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:label="chat_front2"
         android:name="${applicationName}"
@@ -24,12 +27,19 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!-- Don't delete the meta-data below.
-             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        
+        <!-- Usar la configuración de Firebase para notificaciones -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!-- Comentamos la línea que no necesitamos -->
+        <!-- <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" /> -->
+
     </application>
+    
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility?hl=en and
          https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.

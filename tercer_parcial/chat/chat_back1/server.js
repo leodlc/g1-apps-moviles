@@ -46,7 +46,9 @@ app.post('/register-token', async (req, res) => {
     const { username, token } = req.body;
 
     try {
+        console.log(`Token FCM obtenido para ${username}: ${token}`);
         await db.collection('users').doc(username).set({ token });
+        console.log(`Token registrado en el servidor correctamente para ${username}`);
         res.json({ message: 'Token registrado exitosamente' });
     } catch (error) {
         res.status(500).json({ error: 'Error al registrar token' });
@@ -60,12 +62,12 @@ io.on('connection', (socket) => {
     console.log('Usuario conectado');
 
     socket.on('sendMessage', async (data) => {
-        console.log('📤 Datos recibidos desde Flutter en el servidor:', data);
+        console.log('Datos recibidos desde Flutter en el servidor:', data);
 
         const newMessage = {
             username: data.username || data.usuario, 
             message: data.message || data.mensaje,   
-            timestamp: new Date().toISOString(), // <-- Enviar un timestamp en formato ISO
+            timestamp: new Date().toISOString(), // Enviar un timestamp en formato ISO
         };
 
         // Verificar que los datos no sean undefined
@@ -75,15 +77,21 @@ io.on('connection', (socket) => {
         }
 
         try {
+            // Guardar el mensaje en Firestore
             await db.collection('messages').add({
                 username: newMessage.username,
                 message: newMessage.message,
-                timestamp: admin.firestore.FieldValue.serverTimestamp(), // <-- Mantener esto en Firestore
+                timestamp: admin.firestore.FieldValue.serverTimestamp(),
             });
 
-            io.emit('receiveMessage', newMessage); // <-- Enviar un timestamp válido a Flutter
+            // Emitir el mensaje a todos los clientes conectados
+            io.emit('receiveMessage', newMessage);
+
+            // Enviar notificación push al destinatario
+            await sendPushNotification(newMessage.username, newMessage.message);
+
         } catch (error) {
-            console.error('Error al guardar mensaje:', error);
+            console.error('Error al guardar mensaje o enviar notificación:', error);
         }
     });
 
@@ -93,35 +101,66 @@ io.on('connection', (socket) => {
 });
 
 
-
 /** 
  * Función para enviar notificaciones push con Firebase Cloud Messaging (FCM)
  */
 async function sendPushNotification(username, message) {
     try {
+        // Buscar al usuario en Firestore
         const userDoc = await db.collection('users').doc(username).get();
-        if (!userDoc.exists) return;
+        
+        if (!userDoc.exists) {
+            console.error(`Usuario ${username} no encontrado en Firestore`);
+            return;
+        }
 
         const userToken = userDoc.data().token;
-        if (!userToken) return;
+
+        if (!userToken) {
+            console.error(`Usuario ${username} no tiene un token registrado`);
+            return;
+        }
+
+        console.log(`Enviando notificación a ${username} con token: ${userToken}`);
 
         const payload = {
             notification: {
                 title: 'Nuevo mensaje',
                 body: `${username}: ${message}`,
-                click_action: 'FLUTTER_NOTIFICATION_CLICK',
+            },
+            android: {
+                notification: {
+                    click_action: 'FLUTTER_NOTIFICATION_CLICK' // Solo en Android
+                }
             },
             token: userToken,
         };
 
-        await fcm.send(payload);
-        console.log('Notificación enviada');
+        const response = await fcm.send(payload);
+        console.log('Notificación enviada correctamente:', response);
     } catch (error) {
         console.error('Error enviando notificación:', error);
     }
 }
 
-// Iniciar servidor en el puerto 3000
-server.listen(3000, () => {
-    console.log('Servidor corriendo en http://localhost:3000');
+/** 
+ * Endpoint para registrar usuario sin token
+ */
+app.post('/register-user', async (req, res) => {
+    const { username } = req.body;
+
+    try {
+        await db.collection('users').doc(username).set({ token: null }, { merge: true });
+        console.log(`Usuario ${username} registrado en Firestore`);
+        res.json({ message: 'Usuario registrado exitosamente' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al registrar usuario' });
+    }
+});
+
+
+const IP_SERVIDOR = "192.168.100.xx"; // ⚡ Reemplaza con la IP correcta
+
+server.listen(3000, IP_SERVIDOR, () => {
+    console.log(`🚀 Servidor corriendo en http://${IP_SERVIDOR}:3000`);
 });

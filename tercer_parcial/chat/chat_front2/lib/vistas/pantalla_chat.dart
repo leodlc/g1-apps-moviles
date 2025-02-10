@@ -1,26 +1,27 @@
-// lib/vistas/pantalla_chat.dart
-
 import 'package:flutter/material.dart';
 import '../controladores/controlador_chat.dart';
 import '../modelos/mensaje.dart';
 
 class PantallaChat extends StatefulWidget {
   final String usuario;
+  final String serverIp; // Agregamos la IP del servidor
 
-  PantallaChat({required this.usuario});
+  PantallaChat({required this.usuario, required this.serverIp});
 
   @override
   _PantallaChatState createState() => _PantallaChatState();
 }
 
 class _PantallaChatState extends State<PantallaChat> {
-  final ControladorChat _controladorChat = ControladorChat();
+  late ControladorChat _controladorChat; // Inicializado en initState
   final TextEditingController _controladorMensaje = TextEditingController();
   List<Mensaje> _mensajes = [];
 
   @override
   void initState() {
     super.initState();
+    _controladorChat =
+        ControladorChat(widget.serverIp); // Usamos la IP ingresada
     _cargarMensajes();
     _controladorChat.conectarSocket((mensaje) {
       setState(() {

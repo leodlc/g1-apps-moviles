@@ -1,21 +1,24 @@
-// lib/controladores/controlador_chat.dart
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import '../modelos/mensaje.dart';
 
 class ControladorChat {
-  final String apiUrl = 'http://localhost:3000/messages';
-  final String socketUrl = 'http://localhost:3000';
+  final String serverIp;
+  late final String apiUrl;
+  late final String socketUrl;
   IO.Socket? socket;
+
+  ControladorChat(this.serverIp) {
+    apiUrl = 'http://$serverIp:3000/messages';
+    socketUrl = 'http://$serverIp:3000';
+  }
 
   // Conectar al servidor Socket.IO
   void conectarSocket(Function alRecibirMensaje) {
     socket = IO.io(
         socketUrl, IO.OptionBuilder().setTransports(['websocket']).build());
     socket!.on('receiveMessage', (data) {
-      // 🔍 Imprimir los datos recibidos en la consola de Flutter
       print('📥 Datos recibidos del servidor en Flutter: $data');
 
       try {
