@@ -4,7 +4,7 @@ import '../modelos/mensaje.dart';
 
 class PantallaChat extends StatefulWidget {
   final String usuario;
-  final String serverIp; // Agregamos la IP del servidor
+  final String serverIp;
 
   PantallaChat({required this.usuario, required this.serverIp});
 
@@ -13,21 +13,34 @@ class PantallaChat extends StatefulWidget {
 }
 
 class _PantallaChatState extends State<PantallaChat> {
-  late ControladorChat _controladorChat; // Inicializado en initState
+  late ControladorChat _controladorChat;
   final TextEditingController _controladorMensaje = TextEditingController();
   List<Mensaje> _mensajes = [];
 
   @override
   void initState() {
     super.initState();
-    _controladorChat =
-        ControladorChat(widget.serverIp); // Usamos la IP ingresada
+    _controladorChat = ControladorChat(widget.serverIp);
+
+    _conectarSocket();
+
     _cargarMensajes();
-    _controladorChat.conectarSocket((mensaje) {
-      setState(() {
-        _mensajes.add(mensaje);
+  }
+
+  void _conectarSocket() {
+    _controladorChat.desconectarSocket(); // Cerrar cualquier conexión previa
+    Future.delayed(Duration(milliseconds: 500), () {
+      _controladorChat.conectarSocket((mensaje) {
+        setState(() {
+          _mensajes.add(mensaje);
+        });
       });
     });
+  }
+
+  Future<bool> _salirDelChat() async {
+    _controladorChat.desconectarSocket();
+    return true; // Permitir que la pantalla retroceda
   }
 
   @override
@@ -43,7 +56,7 @@ class _PantallaChatState extends State<PantallaChat> {
         _mensajes = mensajes;
       });
     } catch (e) {
-      print('Error al cargar mensajes: $e');
+      print('❌ Error al cargar mensajes: $e');
     }
   }
 
@@ -61,40 +74,44 @@ class _PantallaChatState extends State<PantallaChat> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Sala de Chat')),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: _mensajes.length,
-              itemBuilder: (context, index) {
-                final msg = _mensajes[index];
-                return ListTile(
-                  title: Text(msg.usuario),
-                  subtitle: Text(msg.mensaje),
-                );
-              },
+    return WillPopScope(
+      onWillPop: _salirDelChat,
+      child: Scaffold(
+        appBar: AppBar(title: Text('Sala de Chat')),
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: _mensajes.length,
+                itemBuilder: (context, index) {
+                  final msg = _mensajes[index];
+                  return ListTile(
+                    title: Text(msg.usuario),
+                    subtitle: Text(msg.mensaje),
+                  );
+                },
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _controladorMensaje,
-                    decoration: InputDecoration(hintText: 'Escribe un mensaje'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controladorMensaje,
+                      decoration:
+                          InputDecoration(hintText: 'Escribe un mensaje'),
+                    ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: _enviarMensaje,
-                ),
-              ],
+                  IconButton(
+                    icon: Icon(Icons.send),
+                    onPressed: _enviarMensaje,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
