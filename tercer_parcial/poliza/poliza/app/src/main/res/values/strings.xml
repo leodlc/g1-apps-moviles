@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PolizaApp</string>
+    <string-array name="modelos_array">
+        <item>Modelo A</item>
+        <item>Modelo B</item>
+        <item>Modelo C</item>
+    </string-array>
+</resources>
